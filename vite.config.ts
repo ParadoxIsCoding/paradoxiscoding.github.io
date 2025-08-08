@@ -4,14 +4,15 @@ import path from "node:path";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/", // For user/org GitHub Pages (paradoxiscoding.github.io)
+  // Use relative paths so GitHub Pages never 404s JS/CSS
+  base: "",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
     },
   },
   build: {
-    outDir: "docs", // Output build files to /docs for GitHub Pages
-    emptyOutDir: true, // Clears old build files before building
+    outDir: "docs",
+    emptyOutDir: true,
   },
 });

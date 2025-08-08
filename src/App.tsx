@@ -12,6 +12,7 @@ import {
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import { Badge } from "./components/ui/badge";
+import SkillsShowcase from "./components/SkillsShowcase";
 
 const container: Variants = {
   hidden: { opacity: 0 },
@@ -40,8 +41,16 @@ const Section = ({
 }) => (
   <section id={id} className="relative py-20 md:py-28 scroll-mt-24">
     <div className="max-w-6xl mx-auto px-6">
-      <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={container}>
-        <motion.h2 variants={item} className="text-3xl md:text-4xl font-bold tracking-tight text-white">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={container}
+      >
+        <motion.h2
+          variants={item}
+          className="text-3xl md:text-4xl font-bold tracking-tight text-white"
+        >
           {title}
         </motion.h2>
         {subtitle && (
@@ -95,12 +104,21 @@ export default function App() {
       {/* Navbar */}
       <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-zinc-900/60 border-b border-zinc-800">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <button onClick={() => scrollTo("home")} className="group inline-flex items-center gap-2">
-            <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-indigo-500/80 to-fuchsia-500/80 grid place-items-center ring-1 ring-white/10">
-              <span className="font-bold text-white">TS</span>
-            </div>
-            <span className="text-sm text-zinc-400 group-hover:text-zinc-200 transition">Taha Salman</span>
+          <button
+            onClick={() => scrollTo("home")}
+            className="group inline-flex items-center gap-2"
+          >
+            {/* Custom logo from /public/images/logo.jpg with hover-scale */}
+            <img
+              src="/images/logo.jpg"
+              alt="Taha Salman logo"
+              className="h-8 w-8 rounded-xl ring-1 ring-white/10 object-cover transform transition-transform duration-200 group-hover:scale-110"
+            />
+            <span className="text-sm text-zinc-400 group-hover:text-zinc-200 transition">
+              Taha Salman
+            </span>
           </button>
+
           <nav className="hidden md:flex items-center gap-1">
             {nav.map((n) => (
               <button
@@ -112,6 +130,7 @@ export default function App() {
               </button>
             ))}
           </nav>
+
           <div className="flex items-center gap-2">
             <a href="#contact">
               <Button size="sm" className="rounded-xl">
@@ -137,7 +156,9 @@ export default function App() {
               Taha Salman
             </h1>
             <p className="mt-4 text-lg text-zinc-400 max-w-xl">
-              Mechatronics-minded student & robotics tinkerer. This is a clean, dark starter you can fill with your story, projects, and achievements.
+              Mechatronics-minded student & robotics tinkerer. This is a clean,
+              dark starter you can fill with your story, projects, and
+              achievements.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Button onClick={() => scrollTo("projects")} className="rounded-xl">
@@ -150,13 +171,26 @@ export default function App() {
               </a>
             </div>
             <div className="mt-6 flex items-center gap-3">
-              <a className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition" href="#" target="_blank" rel="noreferrer">
+              <a
+                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
+                href="#"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <Github className="h-4 w-4" /> GitHub
               </a>
-              <a className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition" href="#" target="_blank" rel="noreferrer">
+              <a
+                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
+                href="#"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </a>
-              <a className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition" href="#contact">
+              <a
+                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
+                href="#contact"
+              >
                 <Mail className="h-4 w-4" /> Email
               </a>
             </div>
@@ -168,32 +202,36 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            {/* Glow card */}
+            {/* Glow card background */}
             <div className="absolute -inset-1 bg-gradient-to-tr from-indigo-500/40 via-fuchsia-500/30 to-cyan-500/30 blur-2xl rounded-3xl opacity-40" />
-            <div className="relative rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6">
-              <div className="aspect-[4/3] rounded-2xl bg-[conic-gradient(at_50%_50%,rgba(120,119,198,0.15),rgba(244,114,182,0.12),rgba(34,211,238,0.12),rgba(120,119,198,0.15))]" />
-              <div className="mt-4 grid grid-cols-3 gap-2">
-                {["Robotics", "AI", "Rust", "Python", "CAD", "Electrical"].map((t) => (
-                  <Badge key={t} className="justify-center rounded-xl">
-                    {t}
-                  </Badge>
-                ))}
-              </div>
-            </div>
+
+            {/* Skills showcase with default Robotics image */}
+            <SkillsShowcase />
           </motion.div>
         </div>
       </section>
 
       {/* About */}
-      <Section id="about" title="About" subtitle="Drop in a short bio, mission, and a photo later.">
+      <Section
+        id="about"
+        title="About"
+        subtitle="Drop in a short bio, mission, and a photo later."
+      >
         <div className="grid md:grid-cols-3 gap-6">
-          {["Driven problem-solver", "Robotics champion", "UQ Mechatronics hopeful"].map((headline) => (
+          {[
+            "Driven problem-solver",
+            "Robotics champion",
+            "UQ Mechatronics hopeful",
+          ].map((headline) => (
             <Card key={headline} className="rounded-2xl">
               <CardHeader>
-                <CardTitle className="text-white text-lg">{headline}</CardTitle>
+                <CardTitle className="text-white text-lg">
+                  {headline}
+                </CardTitle>
               </CardHeader>
               <CardContent className="text-zinc-400">
-                Add a couple of sentences here that illustrate this point with a result, metric, or short story.
+                Add a couple of sentences here that illustrate this point with a
+                result, metric, or short story.
               </CardContent>
             </Card>
           ))}
@@ -217,9 +255,13 @@ export default function App() {
                 <CardTitle className="text-white">Project Title {i}</CardTitle>
               </CardHeader>
               <CardContent className="text-zinc-400">
-                A one-liner about what this does and why it matters. Add a link below.
+                A one-liner about what this does and why it matters. Add a link
+                below.
                 <div className="mt-3">
-                  <a href="#" className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200">
+                  <a
+                    href="#"
+                    className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
+                  >
                     View repo <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 </div>
@@ -230,14 +272,24 @@ export default function App() {
       </Section>
 
       {/* Experience */}
-      <Section id="experience" title="Experience" subtitle="Roles, comps, awards—keep it punchy.">
+      <Section
+        id="experience"
+        title="Experience"
+        subtitle="Roles, comps, awards—keep it punchy."
+      >
         <div className="space-y-4">
           {[
-            { role: "Team Lead, FTC Robotics", meta: "2024–2025 • Asia Pacific Open Champions" },
+            {
+              role: "Team Lead, FTC Robotics",
+              meta: "2024–2025 • Asia Pacific Open Champions",
+            },
             { role: "Software Developer (Freelance)", meta: "Rust • Python • React" },
             { role: "STEM Outreach", meta: "Workshops, mentoring, community" },
           ].map((r) => (
-            <div key={r.role} className="flex items-start justify-between rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5">
+            <div
+              key={r.role}
+              className="flex items-start justify-between rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5"
+            >
               <div>
                 <h3 className="text-white font-medium">{r.role}</h3>
                 <p className="text-sm text-zinc-400">{r.meta}</p>
@@ -249,7 +301,11 @@ export default function App() {
       </Section>
 
       {/* Contact */}
-      <Section id="contact" title="Contact" subtitle="Plug in your real links or a form handler when you’re ready.">
+      <Section
+        id="contact"
+        title="Contact"
+        subtitle="Plug in your real links or a form handler when you’re ready."
+      >
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="rounded-2xl">
             <CardHeader>
@@ -257,23 +313,49 @@ export default function App() {
             </CardHeader>
             <CardContent>
               <form className="space-y-4">
-                <input className="w-full rounded-xl bg-zinc-950/80 border border-zinc-800 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40" placeholder="Your name" />
-                <input className="w-full rounded-xl bg-zinc-950/80 border border-zinc-800 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40" placeholder="Email" />
-                <textarea rows={5} className="w-full rounded-xl bg-zinc-950/80 border border-zinc-800 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40" placeholder="Message" />
+                <input
+                  className="w-full rounded-xl bg-zinc-950/80 border border-zinc-800 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                  placeholder="Your name"
+                />
+                <input
+                  className="w-full rounded-xl bg-zinc-950/80 border border-zinc-800 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                  placeholder="Email"
+                />
+                <textarea
+                  rows={5}
+                  className="w-full rounded-xl bg-zinc-950/80 border border-zinc-800 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                  placeholder="Message"
+                />
                 <Button className="rounded-xl w-full">Send</Button>
               </form>
-              <p className="mt-4 text-xs text-zinc-500">This form is a placeholder. Hook it to your provider (Formspree, Resend, etc.).</p>
+              <p className="mt-4 text-xs text-zinc-500">
+                This form is a placeholder. Hook it to your provider (Formspree,
+                Resend, etc.).
+              </p>
             </CardContent>
           </Card>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
             <p className="text-zinc-400">Prefer email? Reach me at:</p>
-            <a href="mailto:hello@tahasalman.dev" className="mt-2 inline-flex items-center gap-2 text-white">
+            <a
+              href="mailto:hello@tahasalman.dev"
+              className="mt-2 inline-flex items-center gap-2 text-white"
+            >
               <Mail className="h-4 w-4" /> hello@tahasalman.dev
             </a>
             <div className="mt-6 flex items-center gap-4">
-              <a href="#" className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"><Github className="h-4 w-4" /> GitHub</a>
-              <a href="#" className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"><Linkedin className="h-4 w-4" /> LinkedIn</a>
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
+              >
+                <Github className="h-4 w-4" /> GitHub
+              </a>
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
+              >
+                <Linkedin className="h-4 w-4" /> LinkedIn
+              </a>
             </div>
           </div>
         </div>
@@ -282,8 +364,12 @@ export default function App() {
       {/* Footer */}
       <footer className="relative z-10 border-t border-zinc-800 py-10">
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-zinc-500">© {new Date().getFullYear()} Taha Salman. All rights reserved.</p>
-          <div className="text-xs text-zinc-500">Built with React + Tailwind + Framer Motion.</div>
+          <p className="text-sm text-zinc-500">
+            © {new Date().getFullYear()} Taha Salman. All rights reserved.
+          </p>
+          <div className="text-xs text-zinc-500">
+            Built with React + Tailwind + Framer Motion.
+          </div>
         </div>
       </footer>
     </div>

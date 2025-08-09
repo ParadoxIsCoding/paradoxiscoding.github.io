@@ -11,8 +11,19 @@ import {
 
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
-import { Badge } from "./components/ui/badge";
 import SkillsShowcase from "./components/SkillsShowcase";
+
+// Custom Discord icon (SVG)
+const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M20.317 4.369a19.91 19.91 0 0 0-4.885-1.515.074.074 0 0 0-.078.037c-.21.375-.444.864-.608 1.249-1.844-.276-3.68-.276-5.486 0-.164-.4-.41-.874-.622-1.249a.077.077 0 0 0-.078-.037c-1.4.27-3.06.74-4.886 1.515a.07.07 0 0 0-.032.027C2.21 9.052 1.23 13.58 1.5 18.061a.08.08 0 0 0 .031.057 19.96 19.96 0 0 0 5.993 3.028.078.078 0 0 0 .084-.027c.462-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.104 13.14 13.14 0 0 1-1.872-.892.077.077 0 0 1-.008-.127c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.009c.12.099.246.198.372.292a.077.077 0 0 1-.006.127 12.18 12.18 0 0 1-1.873.891.076.076 0 0 0-.04.105c.36.698.772 1.362 1.225 1.993a.077.077 0 0 0 .084.028 19.94 19.94 0 0 0 6.002-3.028.077.077 0 0 0 .03-.056c.5-8.173-1.287-12.665-5.384-13.665a.06.06 0 0 0-.032-.004zM8.02 15.51c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.094 2.157 2.419 0 1.334-.956 2.419-2.157 2.419zm7.958 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.094 2.157 2.419 0 1.334-.947 2.419-2.157 2.419z" />
+  </svg>
+);
 
 const container: Variants = {
   hidden: { opacity: 0 },
@@ -167,6 +178,8 @@ export default function App() {
                 </Button>
               </a>
             </div>
+
+            {/* Social links */}
             <div className="mt-6 flex items-center gap-3">
               <a
                 className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
@@ -190,6 +203,14 @@ export default function App() {
               >
                 <Mail className="h-4 w-4" /> Email
               </a>
+              <a
+                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
+                href="https://discord.com/users/733568404081999932"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <DiscordIcon className="h-4 w-4" /> Discord
+              </a>
             </div>
           </motion.div>
 
@@ -212,11 +233,10 @@ export default function App() {
         subtitle="Sharing my love for Robotics and Coffee"
       >
         <div className="grid md:grid-cols-3 gap-6">
-          {/* Driven problem-solver */}
           <Card className="rounded-2xl">
             <CardHeader>
               <CardTitle className="text-white text-lg">
-                APOC Championship 2025 
+                APOC Championship 2025
               </CardTitle>
             </CardHeader>
             <CardContent className="text-zinc-400">
@@ -224,12 +244,9 @@ export default function App() {
             </CardContent>
           </Card>
 
-          {/* Robotics champion */}
           <Card className="rounded-2xl">
             <CardHeader>
-              <CardTitle className="text-white text-lg">
-                Robotics champion
-              </CardTitle>
+              <CardTitle className="text-white text-lg">Robotics champion</CardTitle>
             </CardHeader>
             <CardContent className="text-zinc-400">
               Add a couple of sentences here that illustrate this point with a
@@ -237,12 +254,9 @@ export default function App() {
             </CardContent>
           </Card>
 
-          {/* UQ Mechatronics hopeful */}
           <Card className="rounded-2xl">
             <CardHeader>
-              <CardTitle className="text-white text-lg">
-                UQ Mechatronics hopeful
-              </CardTitle>
+              <CardTitle className="text-white text-lg">UQ Mechatronics hopeful</CardTitle>
             </CardHeader>
             <CardContent className="text-zinc-400">
               Add a couple of sentences here that illustrate this point with a
@@ -259,7 +273,6 @@ export default function App() {
         subtitle="Showcase a few highlights. Replace the placeholders with real links and screenshots."
       >
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Project 1 */}
           <Card className="group rounded-2xl overflow-hidden">
             <div className="relative">
               <img
@@ -287,7 +300,6 @@ export default function App() {
             </CardContent>
           </Card>
 
-          {/* Project 2 */}
           <Card className="group rounded-2xl overflow-hidden">
             <div className="relative">
               <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
@@ -309,7 +321,6 @@ export default function App() {
             </CardContent>
           </Card>
 
-          {/* Project 3 */}
           <Card className="group rounded-2xl overflow-hidden">
             <div className="relative">
               <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
@@ -331,7 +342,6 @@ export default function App() {
             </CardContent>
           </Card>
 
-          {/* Project 4 */}
           <Card className="group rounded-2xl overflow-hidden">
             <div className="relative">
               <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
@@ -355,13 +365,8 @@ export default function App() {
         </div>
       </Section>
 
-
       {/* Contact */}
-      <Section
-        id="contact"
-        title="Contact"
-        subtitle="Get in touch with me directly."
-      >
+      <Section id="contact" title="Contact" subtitle="Get in touch with me directly.">
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="rounded-2xl">
             <CardHeader>
@@ -385,8 +390,7 @@ export default function App() {
                 <Button className="rounded-xl w-full">Send</Button>
               </form>
               <p className="mt-4 text-xs text-zinc-500">
-                This form is a placeholder. Hook it to your provider (Formspree,
-                Resend, etc.).
+                This form is a placeholder. Hook it to your provider (Formspree, Resend, etc.).
               </p>
             </CardContent>
           </Card>
@@ -415,6 +419,14 @@ export default function App() {
                 className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
               >
                 <Linkedin className="h-4 w-4" /> LinkedIn
+              </a>
+              <a
+                href="https://discord.com/users/733568404081999932"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
+              >
+                <DiscordIcon className="h-4 w-4" /> Discord
               </a>
             </div>
           </div>

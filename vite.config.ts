@@ -4,15 +4,14 @@ import path from "node:path";
 
 export default defineConfig({
   plugins: [react()],
-  // Use relative paths so GitHub Pages never 404s JS/CSS
-  base: "",
+  base: "/",                // GitHub user/org pages
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
     },
   },
   build: {
-    outDir: "docs",
+    outDir: "docs",         // GitHub Pages reads from /docs on main
     emptyOutDir: true,
   },
 });

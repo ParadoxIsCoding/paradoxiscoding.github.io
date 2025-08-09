@@ -212,23 +212,43 @@ export default function App() {
         subtitle="Sharing my love for Robotics and Coffee"
       >
         <div className="grid md:grid-cols-3 gap-6">
-          {[
-            "Driven problem-solver",
-            "Robotics champion",
-            "UQ Mechatronics hopeful",
-          ].map((headline) => (
-            <Card key={headline} className="rounded-2xl">
-              <CardHeader>
-                <CardTitle className="text-white text-lg">
-                  {headline}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-zinc-400">
-                Add a couple of sentences here that illustrate this point with a
-                result, metric, or short story.
-              </CardContent>
-            </Card>
-          ))}
+          {/* Driven problem-solver */}
+          <Card className="rounded-2xl">
+            <CardHeader>
+              <CardTitle className="text-white text-lg">
+                APOC Championship 2025 
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-zinc-400">
+              1<sup>st</sup> in the Asia Pacific Open Championships with my Team 20489
+            </CardContent>
+          </Card>
+
+          {/* Robotics champion */}
+          <Card className="rounded-2xl">
+            <CardHeader>
+              <CardTitle className="text-white text-lg">
+                Robotics champion
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-zinc-400">
+              Add a couple of sentences here that illustrate this point with a
+              result, metric, or short story.
+            </CardContent>
+          </Card>
+
+          {/* UQ Mechatronics hopeful */}
+          <Card className="rounded-2xl">
+            <CardHeader>
+              <CardTitle className="text-white text-lg">
+                UQ Mechatronics hopeful
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-zinc-400">
+              Add a couple of sentences here that illustrate this point with a
+              result, metric, or short story.
+            </CardContent>
+          </Card>
         </div>
       </Section>
 
@@ -239,61 +259,102 @@ export default function App() {
         subtitle="Showcase a few highlights. Replace the placeholders with real links and screenshots."
       >
         <div className="grid md:grid-cols-2 gap-6">
-          {[1, 2, 3, 4].map((i) => (
-            <Card key={i} className="group rounded-2xl overflow-hidden">
-              <div className="relative">
-                <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
-                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
+          {/* Project 1 */}
+          <Card className="group rounded-2xl overflow-hidden">
+            <div className="relative">
+              <img
+                src="/images/apoc_hang.jpeg"
+                alt="APOC Hang - FTC Robotics"
+                className="aspect-video w-full object-cover group-hover:scale-[1.01] transition-transform"
+              />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
+            </div>
+            <CardHeader>
+              <CardTitle className="text-white">Robotics – FTC</CardTitle>
+            </CardHeader>
+            <CardContent className="text-zinc-400">
+              Apart of Team 24089 Iron Lions in the First Tech Challenge™
+              <div className="mt-3">
+                <a
+                  href="https://github.com/IronLionsFTC/"
+                  className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View repo <ExternalLink className="h-3.5 w-3.5" />
+                </a>
               </div>
-              <CardHeader>
-                <CardTitle className="text-white">FTC</CardTitle>
-              </CardHeader>
-              <CardContent className="text-zinc-400">
-                Apart of Team 24089 Iron Lions in the First Tech Challange™
-                <div className="mt-3">
-                  <a
-                    href="https://github.com/ParadoxIsCoding"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
-                  >
-                    View repo <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+            </CardContent>
+          </Card>
+
+          {/* Project 2 */}
+          <Card className="group rounded-2xl overflow-hidden">
+            <div className="relative">
+              <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
+            </div>
+            <CardHeader>
+              <CardTitle className="text-white">Project Title</CardTitle>
+            </CardHeader>
+            <CardContent className="text-zinc-400">
+              Short project description here.
+              <div className="mt-3">
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
+                >
+                  View repo <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Project 3 */}
+          <Card className="group rounded-2xl overflow-hidden">
+            <div className="relative">
+              <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
+            </div>
+            <CardHeader>
+              <CardTitle className="text-white">Project Title</CardTitle>
+            </CardHeader>
+            <CardContent className="text-zinc-400">
+              Short project description here.
+              <div className="mt-3">
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
+                >
+                  View repo <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Project 4 */}
+          <Card className="group rounded-2xl overflow-hidden">
+            <div className="relative">
+              <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
+            </div>
+            <CardHeader>
+              <CardTitle className="text-white">Project Title</CardTitle>
+            </CardHeader>
+            <CardContent className="text-zinc-400">
+              Short project description here.
+              <div className="mt-3">
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
+                >
+                  View repo <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </Section>
 
-      {/* Experience */}
-      <Section
-        id="experience"
-        title="Experience"
-        subtitle="Roles, comps, awards—keep it punchy."
-      >
-        <div className="space-y-4">
-          {[
-            {
-              role: "Team Lead, FTC Robotics",
-              meta: "2024–2025 • Asia Pacific Open Champions",
-            },
-            { role: "Software Developer (Freelance)", meta: "Rust • Python • React" },
-            { role: "STEM Outreach", meta: "Workshops, mentoring, community" },
-          ].map((r) => (
-            <div
-              key={r.role}
-              className="flex items-start justify-between rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5"
-            >
-              <div>
-                <h3 className="text-white font-medium">{r.role}</h3>
-                <p className="text-sm text-zinc-400">{r.meta}</p>
-              </div>
-              <Badge className="rounded-xl">Add details</Badge>
-            </div>
-          ))}
-        </div>
-      </Section>
 
       {/* Contact */}
       <Section

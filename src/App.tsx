@@ -57,7 +57,7 @@ function Typewriter({
   );
 }
 
-/* ---------------------------- Particles Canvas --------------------------- */
+/* ---------------------------- Particles Canvas (Stars) ------------------- */
 function ParticlesBG({ count = 70 }: { count?: number }) {
   const ref = useRef<HTMLCanvasElement>(null);
   const particles = useRef<
@@ -81,8 +81,8 @@ function ParticlesBG({ count = 70 }: { count?: number }) {
     particles.current = Array.from({ length: count }).map(() => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
+      vx: (Math.random() - 0.5) * 0.08,
+      vy: (Math.random() - 0.5) * 0.08,
       r: Math.random() * 1.6 + 0.4,
       a: Math.random() * 0.5 + 0.1,
     }));
@@ -93,7 +93,7 @@ function ParticlesBG({ count = 70 }: { count?: number }) {
 
     const loop = () => {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      ctx.fillStyle = "rgba(180, 180, 255, 0.25)";
+      ctx.fillStyle = "rgba(255, 255, 255, 1)";
       particles.current.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
@@ -200,7 +200,7 @@ export default function App() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // phrases for the hero’s animated subtitle (removed “FTC Competitor”)
+  // phrases for the hero’s animated subtitle
   const phrases = useMemo(
     () => ["Mechatronics Engineer", "Robotics Champion"],
     []
@@ -208,7 +208,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0B0B0F] text-zinc-200 antialiased">
-      {/* Background accents + particles */}
+      {/* Background accents + stars */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(120,119,198,0.15),rgba(0,0,0,0))]" />
         <div
@@ -220,7 +220,7 @@ export default function App() {
           }}
         />
       </div>
-      <ParticlesBG count={70} />
+      <ParticlesBG count={100} />
 
       {/* Navbar */}
       <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-zinc-900/60 border-b border-zinc-800">
@@ -293,7 +293,7 @@ export default function App() {
               </a>
             </div>
 
-            {/* Social links (Discord presence matches style) */}
+            {/* Social links */}
             <div className="mt-6 flex items-center gap-3">
               <a
                 className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"

@@ -108,7 +108,6 @@ export default function App() {
             onClick={() => scrollTo("home")}
             className="group inline-flex items-center gap-2"
           >
-            {/* Custom logo from /public/images/logo.jpg with hover-scale */}
             <img
               src="/images/logo.jpg"
               alt="Taha Salman logo"
@@ -150,15 +149,13 @@ export default function App() {
             transition={{ duration: 0.6 }}
           >
             <Pill>
-              <Sparkles className="mr-1 h-4 w-4" /> Welcome
+              <Sparkles className="mr-1 h-4 w-4" /> Hello World!
             </Pill>
             <h1 className="mt-4 text-4xl md:text-6xl font-extrabold leading-tight text-white">
               Taha Salman
             </h1>
             <p className="mt-4 text-lg text-zinc-400 max-w-xl">
-              Mechatronics-minded student & robotics tinkerer. This is a clean,
-              dark starter you can fill with your story, projects, and
-              achievements.
+              Year 12 Student at Sunshine Coast Grammar School and aspiring Mechatronics Engineer
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Button onClick={() => scrollTo("projects")} className="rounded-xl">
@@ -173,7 +170,7 @@ export default function App() {
             <div className="mt-6 flex items-center gap-3">
               <a
                 className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
-                href="#"
+                href="https://github.com/ParadoxIsCoding"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -181,7 +178,7 @@ export default function App() {
               </a>
               <a
                 className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
-                href="#"
+                href="https://www.linkedin.com/in/tahas1/"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -189,7 +186,7 @@ export default function App() {
               </a>
               <a
                 className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
-                href="#contact"
+                href="mailto:Tahasalman.9t@gmail.com"
               >
                 <Mail className="h-4 w-4" /> Email
               </a>
@@ -202,10 +199,7 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            {/* Glow card background */}
             <div className="absolute -inset-1 bg-gradient-to-tr from-indigo-500/40 via-fuchsia-500/30 to-cyan-500/30 blur-2xl rounded-3xl opacity-40" />
-
-            {/* Skills showcase with default Robotics image */}
             <SkillsShowcase />
           </motion.div>
         </div>
@@ -215,7 +209,7 @@ export default function App() {
       <Section
         id="about"
         title="About"
-        subtitle="Drop in a short bio, mission, and a photo later."
+        subtitle="Sharing my love for Robotics and Coffee"
       >
         <div className="grid md:grid-cols-3 gap-6">
           {[
@@ -252,14 +246,15 @@ export default function App() {
                 <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
               </div>
               <CardHeader>
-                <CardTitle className="text-white">Project Title {i}</CardTitle>
+                <CardTitle className="text-white">FTC</CardTitle>
               </CardHeader>
               <CardContent className="text-zinc-400">
-                A one-liner about what this does and why it matters. Add a link
-                below.
+                Apart of Team 24089 Iron Lions in the First Tech Challange™
                 <div className="mt-3">
                   <a
-                    href="#"
+                    href="https://github.com/ParadoxIsCoding"
+                    target="_blank"
+                    rel="noreferrer"
                     className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
                   >
                     View repo <ExternalLink className="h-3.5 w-3.5" />
@@ -304,7 +299,7 @@ export default function App() {
       <Section
         id="contact"
         title="Contact"
-        subtitle="Plug in your real links or a form handler when you’re ready."
+        subtitle="Get in touch with me directly."
       >
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="rounded-2xl">
@@ -338,20 +333,24 @@ export default function App() {
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
             <p className="text-zinc-400">Prefer email? Reach me at:</p>
             <a
-              href="mailto:hello@tahasalman.dev"
+              href="mailto:Tahasalman.9t@gmail.com"
               className="mt-2 inline-flex items-center gap-2 text-white"
             >
-              <Mail className="h-4 w-4" /> hello@tahasalman.dev
+              <Mail className="h-4 w-4" /> Tahasalman.9t@gmail.com
             </a>
             <div className="mt-6 flex items-center gap-4">
               <a
-                href="#"
+                href="https://github.com/ParadoxIsCoding"
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
               >
                 <Github className="h-4 w-4" /> GitHub
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/in/tahas1/"
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
               >
                 <Linkedin className="h-4 w-4" /> LinkedIn

@@ -1,3 +1,4 @@
+// src/App.tsx
 import { motion, type Variants } from "framer-motion";
 import {
   ArrowRight,
@@ -13,18 +14,132 @@ import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import SkillsShowcase from "./components/SkillsShowcase";
 
-// Custom Discord icon (SVG)
+/* ----------------------------- Custom Icons ----------------------------- */
+// Simple Discord glyph so we don't add a new dependency
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    {...props}
-  >
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path d="M20.317 4.369a19.91 19.91 0 0 0-4.885-1.515.074.074 0 0 0-.078.037c-.21.375-.444.864-.608 1.249-1.844-.276-3.68-.276-5.486 0-.164-.4-.41-.874-.622-1.249a.077.077 0 0 0-.078-.037c-1.4.27-3.06.74-4.886 1.515a.07.07 0 0 0-.032.027C2.21 9.052 1.23 13.58 1.5 18.061a.08.08 0 0 0 .031.057 19.96 19.96 0 0 0 5.993 3.028.078.078 0 0 0 .084-.027c.462-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.104 13.14 13.14 0 0 1-1.872-.892.077.077 0 0 1-.008-.127c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.009c.12.099.246.198.372.292a.077.077 0 0 1-.006.127 12.18 12.18 0 0 1-1.873.891.076.076 0 0 0-.04.105c.36.698.772 1.362 1.225 1.993a.077.077 0 0 0 .084.028 19.94 19.94 0 0 0 6.002-3.028.077.077 0 0 0 .03-.056c.5-8.173-1.287-12.665-5.384-13.665a.06.06 0 0 0-.032-.004zM8.02 15.51c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.094 2.157 2.419 0 1.334-.956 2.419-2.157 2.419zm7.958 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.094 2.157 2.419 0 1.334-.947 2.419-2.157 2.419z" />
   </svg>
 );
 
+/* ------------------------------ Typewriter ------------------------------ */
+import { useEffect, useMemo, useRef, useState } from "react";
+
+function Typewriter({
+  phrases,
+  speed = 55,
+  deleteSpeed = 35,
+  pause = 1200,
+}: {
+  phrases: string[];
+  speed?: number;
+  deleteSpeed?: number;
+  pause?: number;
+}) {
+  const [i, setI] = useState(0); // which phrase
+  const [text, setText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+
+  const current = phrases[i % phrases.length];
+
+  useEffect(() => {
+    let t: number;
+    if (!deleting && text.length < current.length) {
+      t = window.setTimeout(() => setText(current.slice(0, text.length + 1)), speed);
+    } else if (!deleting && text.length === current.length) {
+      t = window.setTimeout(() => setDeleting(true), pause);
+    } else if (deleting && text.length > 0) {
+      t = window.setTimeout(() => setText(current.slice(0, text.length - 1)), deleteSpeed);
+    } else if (deleting && text.length === 0) {
+      setDeleting(false);
+      setI((p) => p + 1);
+    }
+    return () => clearTimeout(t);
+  }, [text, deleting, current, speed, deleteSpeed, pause]);
+
+  return (
+    <span className="text-indigo-300">
+      {text}
+      <span className="ml-0.5 inline-block w-[1ch] animate-pulse">|</span>
+    </span>
+  );
+}
+
+/* ---------------------------- Particles Canvas --------------------------- */
+function ParticlesBG({
+  count = 60,
+}: {
+  count?: number;
+}) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  const particles = useRef<
+    { x: number; y: number; vx: number; vy: number; r: number; a: number }[]
+  >([]);
+
+  const resize = () => {
+    const c = ref.current;
+    if (!c) return;
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    c.width = Math.floor(window.innerWidth * dpr);
+    c.height = Math.floor(window.innerHeight * dpr);
+    c.style.width = "100%";
+    c.style.height = "100%";
+    const ctx = c.getContext("2d");
+    if (ctx) ctx.scale(dpr, dpr);
+  };
+
+  useEffect(() => {
+    resize();
+    particles.current = Array.from({ length: count }).map(() => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      r: Math.random() * 1.6 + 0.4,
+      a: Math.random() * 0.5 + 0.1,
+    }));
+
+    const c = ref.current!;
+    const ctx = c.getContext("2d")!;
+    let raf = 0;
+
+    const loop = () => {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.fillStyle = "rgba(180, 180, 255, 0.25)";
+      particles.current.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < -10) p.x = window.innerWidth + 10;
+        if (p.x > window.innerWidth + 10) p.x = -10;
+        if (p.y < -10) p.y = window.innerHeight + 10;
+        if (p.y > window.innerHeight + 10) p.y = -10;
+        ctx.globalAlpha = p.a;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      raf = requestAnimationFrame(loop);
+    };
+
+    raf = requestAnimationFrame(loop);
+    window.addEventListener("resize", resize);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
+  }, [count]);
+
+  return (
+    <canvas
+      ref={ref}
+      className="pointer-events-none fixed inset-0 z-0 opacity-40"
+      aria-hidden="true"
+    />
+  );
+}
+
+/* --------------------------------- Motion -------------------------------- */
 const container: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.08 } },
@@ -97,9 +212,19 @@ export default function App() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  /* phrases for the hero’s animated subtitle */
+  const phrases = useMemo(
+    () => [
+      "Mechatronics Engineer",
+      "Robotics Champion",
+      "FTC Competitor",
+    ],
+    []
+  );
+
   return (
     <div className="min-h-screen bg-[#0B0B0F] text-zinc-200 antialiased">
-      {/* Background accents */}
+      {/* Background accents + particles */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(120,119,198,0.15),rgba(0,0,0,0))]" />
         <div
@@ -111,6 +236,7 @@ export default function App() {
           }}
         />
       </div>
+      <ParticlesBG count={70} />
 
       {/* Navbar */}
       <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-zinc-900/60 border-b border-zinc-800">
@@ -165,9 +291,13 @@ export default function App() {
             <h1 className="mt-4 text-4xl md:text-6xl font-extrabold leading-tight text-white">
               Taha Salman
             </h1>
-            <p className="mt-4 text-lg text-zinc-400 max-w-xl">
-              Year 12 Student at Sunshine Coast Grammar School and aspiring Mechatronics Engineer
+
+            {/* Animated subtitle */}
+            <p className="mt-4 text-lg text-zinc-400 max-w-2xl">
+              Year 12 Student at Sunshine Coast Grammar School and aspiring{" "}
+              <Typewriter phrases={phrases} />
             </p>
+
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Button onClick={() => scrollTo("projects")} className="rounded-xl">
                 See Projects <ExternalLink className="ml-2 h-4 w-4" />
@@ -235,9 +365,7 @@ export default function App() {
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="rounded-2xl">
             <CardHeader>
-              <CardTitle className="text-white text-lg">
-                APOC Championship 2025
-              </CardTitle>
+              <CardTitle className="text-white text-lg">APOC Championship 2025</CardTitle>
             </CardHeader>
             <CardContent className="text-zinc-400">
               1<sup>st</sup> in the Asia Pacific Open Championships with my Team 20489
@@ -300,6 +428,7 @@ export default function App() {
             </CardContent>
           </Card>
 
+          {/* placeholders */}
           <Card className="group rounded-2xl overflow-hidden">
             <div className="relative">
               <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
@@ -397,10 +526,7 @@ export default function App() {
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
             <p className="text-zinc-400">Prefer email? Reach me at:</p>
-            <a
-              href="mailto:Tahasalman.9t@gmail.com"
-              className="mt-2 inline-flex items-center gap-2 text-white"
-            >
+            <a href="mailto:Tahasalman.9t@gmail.com" className="mt-2 inline-flex items-center gap-2 text-white">
               <Mail className="h-4 w-4" /> Tahasalman.9t@gmail.com
             </a>
             <div className="mt-6 flex items-center gap-4">
@@ -436,12 +562,8 @@ export default function App() {
       {/* Footer */}
       <footer className="relative z-10 border-t border-zinc-800 py-10">
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-zinc-500">
-            © {new Date().getFullYear()} Taha Salman. All rights reserved.
-          </p>
-          <div className="text-xs text-zinc-500">
-            Built with React + Tailwind + Framer Motion.
-          </div>
+          <p className="text-sm text-zinc-500">© {new Date().getFullYear()} Taha Salman. All rights reserved.</p>
+          <div className="text-xs text-zinc-500">Built with React + Tailwind + Framer Motion.</div>
         </div>
       </footer>
     </div>

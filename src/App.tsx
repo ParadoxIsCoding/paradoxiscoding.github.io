@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import ActivityFeed from "./components/ActivityFeed";
 
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
@@ -350,7 +351,7 @@ export default function App() {
 
           <Card className="rounded-2xl">
             <CardHeader>
-              <CardTitle className="text-white text-lg">FTC Nationalls Champion 2024</CardTitle>
+              <CardTitle className="text-white text-lg">FTC Nationals Champion 2024</CardTitle>
             </CardHeader>
             <CardContent className="text-zinc-400">
               2<sup>nd</sup> in the Australian National Championships with my Team 24089
@@ -458,63 +459,41 @@ export default function App() {
 
 
 
-      {/* Contact */}
-      <Section id="contact" title="Contact" subtitle="Get in touch with me directly.">
-        <div className="grid md:grid-cols-2 gap-6">
-          <Card className="rounded-2xl">
-            <CardHeader>
-              <CardTitle className="text-white">Say hello</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form className="space-y-4">
-                <input
-                  className="w-full rounded-xl bg-zinc-950/80 border border-zinc-800 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-                  placeholder="Your name"
-                />
-                <input
-                  className="w-full rounded-xl bg-zinc-950/80 border border-zinc-800 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-                  placeholder="Email"
-                />
-                <textarea
-                  rows={5}
-                  className="w-full rounded-xl bg-zinc-950/80 border border-zinc-800 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-                  placeholder="Message"
-                />
-                <Button className="rounded-xl w-full">Send</Button>
-              </form>
-              <p className="mt-4 text-xs text-zinc-500">
-                This form is a placeholder. Hook it to your provider (Formspree, Resend, etc.).
-              </p>
-            </CardContent>
-          </Card>
+          {/* Contact */}
+    <Section id="contact" title="Contact">
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* LEFT: Recent Activity feed (replaces the form) */}
+        <ActivityFeed githubUser="ParadoxIsCoding" />
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
-            <p className="text-zinc-400">Prefer email? Reach me at:</p>
-            <a href="mailto:Tahasalman.9t@gmail.com" className="mt-2 inline-flex items-center gap-2 text-white">
-              <Mail className="h-4 w-4" /> Tahasalman.9t@gmail.com
+        {/* RIGHT: your existing contact card stays the same */}
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
+          <p className="text-zinc-400">Prefer email? Reach me at:</p>
+          <a href="mailto:Tahasalman.9t@gmail.com" className="mt-2 inline-flex items-center gap-2 text-white">
+            <Mail className="h-4 w-4" /> Tahasalman.9t@gmail.com
+          </a>
+          <div className="mt-6 flex items-center gap-4">
+            <a
+              href="https://github.com/ParadoxIsCoding"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
+            >
+              <Github className="h-4 w-4" /> GitHub
             </a>
-            <div className="mt-6 flex items-center gap-4">
-              <a
-                href="https://github.com/ParadoxIsCoding"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
-              >
-                <Github className="h-4 w-4" /> GitHub
-              </a>
-              <a
-                href="https://www.linkedin.com/in/tahas1/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
-              >
-                <Linkedin className="h-4 w-4" /> LinkedIn
-              </a>
-              <DiscordPresence />
-            </div>
+            <a
+              href="https://www.linkedin.com/in/tahas1/"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
+            >
+              <Linkedin className="h-4 w-4" /> LinkedIn
+            </a>
+            <DiscordPresence />
           </div>
         </div>
-      </Section>
+      </div>
+    </Section>
+
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-zinc-800 py-10">

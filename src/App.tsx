@@ -471,6 +471,50 @@ export default function App() {
         </div>
       </Section>
 
+      {/* Experience */}
+      <Section
+        id="experience"
+        title="Experience"
+      >
+        <div className="space-y-4">
+          {/* Row 1 */}
+          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
+            <div>
+              <div className="text-white font-medium">Team Lead</div>
+              <div className="mt-1 text-sm text-zinc-500">
+                2023–2025+ • Team 24089 Iron Lions
+              </div>
+            </div>
+            <Button variant="secondary" size="sm" className="rounded-xl text-xs px-3">
+              Add details
+            </Button>
+          </div>
+
+          {/* Row 2 */}
+          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
+            <div>
+              <div className="text-white font-medium">Robotics Captin</div>
+              <div className="mt-1 text-sm text-zinc-500">Rust • Python • React</div>
+            </div>
+            <Button variant="secondary" size="sm" className="rounded-xl text-xs px-3">
+              Add details
+            </Button>
+          </div>
+
+          {/* Row 3 */}
+          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
+            <div>
+              <div className="text-white font-medium">STEM Outreach</div>
+              <div className="mt-1 text-sm text-zinc-500">Workshops, mentoring, community</div>
+            </div>
+            <Button variant="secondary" size="sm" className="rounded-xl text-xs px-3">
+              Add details
+            </Button>
+          </div>
+        </div>
+      </Section>
+
+
       {/* Contact */}
       <Section id="contact" title="Contact" subtitle="Get in touch with me directly.">
         <div className="grid md:grid-cols-2 gap-6">

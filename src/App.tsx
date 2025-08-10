@@ -337,7 +337,6 @@ export default function App() {
       <Section
         id="about"
         title="About"
-        subtitle="Sharing my love for Robotics and Coffee"
       >
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="rounded-2xl">
@@ -375,7 +374,6 @@ export default function App() {
       <Section
         id="projects"
         title="Projects"
-        subtitle="Showcase a few highlights. Replace the placeholders with real links and screenshots."
       >
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="group rounded-2xl overflow-hidden">
@@ -471,48 +469,37 @@ export default function App() {
         </div>
       </Section>
 
-      {/* Experience */}
-      <Section
-        id="experience"
-        title="Experience"
-      >
-        <div className="space-y-4">
-          {/* Row 1 */}
-          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
-            <div>
-              <div className="text-white font-medium">Team Lead</div>
-              <div className="mt-1 text-sm text-zinc-500">
-                2023–2025+ • Team 24089 Iron Lions
-              </div>
-            </div>
-            <Button variant="secondary" size="sm" className="rounded-xl text-xs px-3">
-              Add details
-            </Button>
-          </div>
-
-          {/* Row 2 */}
-          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
-            <div>
-              <div className="text-white font-medium">Robotics Captin</div>
-              <div className="mt-1 text-sm text-zinc-500">Rust • Python • React</div>
-            </div>
-            <Button variant="secondary" size="sm" className="rounded-xl text-xs px-3">
-              Add details
-            </Button>
-          </div>
-
-          {/* Row 3 */}
-          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
-            <div>
-              <div className="text-white font-medium">STEM Outreach</div>
-              <div className="mt-1 text-sm text-zinc-500">Workshops, mentoring, community</div>
-            </div>
-            <Button variant="secondary" size="sm" className="rounded-xl text-xs px-3">
-              Add details
-            </Button>
-          </div>
+{/* Experience */}
+<Section
+  id="experience"
+  title="Experience"
+>
+  <div className="space-y-4">
+    {/* Row 1 */}
+    <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
+      <div>
+        <div className="text-white font-medium">Robotics Team Lead</div>
+        <div className="mt-1 text-sm text-zinc-500">
+          2023–2025+ • Team 24089 Iron Lions
         </div>
-      </Section>
+      </div>
+      <Button variant="secondary" size="sm" className="rounded-xl text-xs px-3">
+        Add details
+      </Button>
+    </div>
+
+    {/* Row 2 */}
+    <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
+      <div>
+        <div className="text-white font-medium">Robotics Captin</div>
+        <div className="mt-1 text-sm text-zinc-500">Sunshine Coast Grammar School</div>
+      </div>
+      <Button variant="secondary" size="sm" className="rounded-xl text-xs px-3">
+        Add details
+      </Button>
+    </div>
+  </div>
+</Section>
 
 
       {/* Contact */}

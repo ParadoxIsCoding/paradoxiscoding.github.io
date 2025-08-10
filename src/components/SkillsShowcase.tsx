@@ -64,7 +64,7 @@ export default function SkillsShowcase() {
 
       {/* same pill row under the image */}
       <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-6">
-        {["Robotics", "AI", "Rust", "Python", "CAD", "Electrical"].map((s) => (
+        {["Robotics", "AI", "ROS2", "Python", "CAD", "Electrical"].map((s) => (
           <div
             key={s}
             className="inline-flex items-center justify-center rounded-xl border border-zinc-800/70 bg-zinc-900/60 px-4 py-2 text-xs text-zinc-300 ring-1 ring-inset ring-white/5"

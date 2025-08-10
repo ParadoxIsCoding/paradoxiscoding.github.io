@@ -341,7 +341,7 @@ export default function App() {
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="rounded-2xl">
             <CardHeader>
-              <CardTitle className="text-white text-lg">APOC Championship 2025</CardTitle>
+              <CardTitle className="text-white text-lg">FTC APOC Championship 2025</CardTitle>
             </CardHeader>
             <CardContent className="text-zinc-400">
               1<sup>st</sup> in the Asia Pacific Open Championships with my Team 20489
@@ -350,21 +350,19 @@ export default function App() {
 
           <Card className="rounded-2xl">
             <CardHeader>
-              <CardTitle className="text-white text-lg">Robotics champion</CardTitle>
+              <CardTitle className="text-white text-lg">FTC Nationalls Champion 2024</CardTitle>
             </CardHeader>
             <CardContent className="text-zinc-400">
-              Add a couple of sentences here that illustrate this point with a
-              result, metric, or short story.
+              2<sup>nd</sup> in the Australian National Championships with my Team 24089
             </CardContent>
           </Card>
 
           <Card className="rounded-2xl">
             <CardHeader>
-              <CardTitle className="text-white text-lg">UQ Mechatronics hopeful</CardTitle>
+              <CardTitle className="text-white text-lg">-</CardTitle>
             </CardHeader>
             <CardContent className="text-zinc-400">
-              Add a couple of sentences here that illustrate this point with a
-              result, metric, or short story.
+              -
             </CardContent>
           </Card>
         </div>
@@ -376,6 +374,7 @@ export default function App() {
         title="Projects"
       >
         <div className="grid md:grid-cols-2 gap-6">
+          {/* Card 1: Robotics – FTC */}
           <Card className="group rounded-2xl overflow-hidden">
             <div className="relative">
               <img
@@ -386,82 +385,44 @@ export default function App() {
               <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
             </div>
             <CardHeader>
-              <CardTitle className="text-white">Robotics – FTC</CardTitle>
+              <CardTitle className="text-white">APOC 2025</CardTitle>
             </CardHeader>
             <CardContent className="text-zinc-400">
               Apart of Team 24089 Iron Lions in the First Tech Challenge™
               <div className="mt-3">
                 <a
-                  href="https://github.com/IronLionsFTC/"
+                  href="https://youtu.be/eLr15aCYTW8?si=Dqk81KM3Jg_pb6ee"
                   className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  View repo <ExternalLink className="h-3.5 w-3.5" />
+                  View <ExternalLink className="h-3.5 w-3.5" />
                 </a>
               </div>
             </CardContent>
           </Card>
 
-          {/* placeholders */}
+          {/* Card 2: Nationals image */}
           <Card className="group rounded-2xl overflow-hidden">
             <div className="relative">
-              <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
+              <img
+                src="/images/nationals.png"
+                alt="FTC Nationals"
+                className="aspect-video w-full object-cover group-hover:scale-[1.01] transition-transform"
+              />
               <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
             </div>
             <CardHeader>
-              <CardTitle className="text-white">Project Title</CardTitle>
+              <CardTitle className="text-white">Nationals 2024</CardTitle>
             </CardHeader>
             <CardContent className="text-zinc-400">
-              Short project description here.
+              Apart of Team 24089 Iron Lions in the First Tech Challenge™
               <div className="mt-3">
                 <a
-                  href="#"
+                  href="https://youtu.be/x4z5jL-8w8A?si=uBjjYfZjW1G_maHx"
                   className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
                 >
-                  View repo <ExternalLink className="h-3.5 w-3.5" />
-                </a>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="group rounded-2xl overflow-hidden">
-            <div className="relative">
-              <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
-              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
-            </div>
-            <CardHeader>
-              <CardTitle className="text-white">Project Title</CardTitle>
-            </CardHeader>
-            <CardContent className="text-zinc-400">
-              Short project description here.
-              <div className="mt-3">
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
-                >
-                  View repo <ExternalLink className="h-3.5 w-3.5" />
-                </a>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="group rounded-2xl overflow-hidden">
-            <div className="relative">
-              <div className="aspect-video bg-zinc-800/60 group-hover:scale-[1.01] transition-transform" />
-              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
-            </div>
-            <CardHeader>
-              <CardTitle className="text-white">Project Title</CardTitle>
-            </CardHeader>
-            <CardContent className="text-zinc-400">
-              Short project description here.
-              <div className="mt-3">
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
-                >
-                  View repo <ExternalLink className="h-3.5 w-3.5" />
+                  View <ExternalLink className="h-3.5 w-3.5" />
                 </a>
               </div>
             </CardContent>
@@ -469,31 +430,31 @@ export default function App() {
         </div>
       </Section>
 
-      {/* Experience */}
-      <Section
-        id="experience"
-        title="Experience"
-      >
-        <div className="space-y-4">
-          {/* Row 1 */}
-          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
-            <div>
-              <div className="text-white font-medium">Robotics Team Lead</div>
-              <div className="mt-1 text-sm text-zinc-500">
-                2023–2025+ • Team 24089 Iron Lions
-              </div>
-            </div>
-          </div>
-
-          {/* Row 2 */}
-          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
-            <div>
-              <div className="text-white font-medium">Robotics Captin</div>
-              <div className="mt-1 text-sm text-zinc-500">Sunshine Coast Grammar School</div>
+    {/* Experience */}
+    <Section
+      id="experience"
+      title="Experience"
+    >
+      <div className="space-y-4">
+        {/* Row 1 */}
+        <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
+          <div>
+            <div className="text-white font-medium">Robotics Team Lead</div>
+            <div className="mt-1 text-sm text-zinc-500">
+              2023–2025+ • Team 24089 Iron Lions
             </div>
           </div>
         </div>
-      </Section>
+
+        {/* Row 2 */}
+        <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
+          <div>
+            <div className="text-white font-medium">Robotics Captin</div>
+            <div className="mt-1 text-sm text-zinc-500">Sunshine Coast Grammar School</div>
+          </div>
+        </div>
+      </div>
+    </Section>
 
 
 

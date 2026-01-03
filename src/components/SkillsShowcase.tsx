@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const SLIDES = ["/images/robot.png", "/images/robot1.png", "/images/robot2.png", "/images/robot3.png"];
+const SLIDES = ["/images/robot.webp", "/images/robot1.webp", "/images/robot2.webp", "/images/robot3.webp"];
 
 export default function SkillsShowcase() {
   const [index, setIndex] = useState(0);
@@ -53,9 +53,8 @@ export default function SkillsShowcase() {
                 key={i}
                 onClick={() => setIndex(i)}
                 aria-label={`Go to slide ${i + 1}`}
-                className={`h-1.5 w-1.5 rounded-full transition ${
-                  i === index ? "bg-white/80" : "bg-white/35 hover:bg-white/55"
-                }`}
+                className={`h-1.5 w-1.5 rounded-full transition ${i === index ? "bg-white/80" : "bg-white/35 hover:bg-white/55"
+                  }`}
               />
             ))}
           </div>

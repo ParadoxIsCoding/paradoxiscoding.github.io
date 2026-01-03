@@ -59,7 +59,7 @@ function Typewriter({
 }
 
 /* ---------------------------- Particles Canvas (Stars) ------------------- */
-function ParticlesBG({ count = 70 }: { count?: number }) {
+function ParticlesBG({ count = 30 }: { count?: number }) {
   const ref = useRef<HTMLCanvasElement>(null);
   const particles = useRef<
     { x: number; y: number; vx: number; vy: number; r: number; a: number }[]
@@ -221,7 +221,7 @@ export default function App() {
           }}
         />
       </div>
-      <ParticlesBG count={100} />
+      <ParticlesBG count={40} />
 
       {/* Navbar */}
       <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-zinc-900/60 border-b border-zinc-800">
@@ -379,7 +379,7 @@ export default function App() {
           <Card className="group rounded-2xl overflow-hidden">
             <div className="relative">
               <img
-                src="/images/apoc_hang.jpeg"
+                src="/images/apoc_hang.webp"
                 alt="APOC Hang - FTC Robotics"
                 className="aspect-video w-full object-cover group-hover:scale-[1.01] transition-transform"
               />
@@ -407,7 +407,7 @@ export default function App() {
           <Card className="group rounded-2xl overflow-hidden">
             <div className="relative">
               <img
-                src="/images/nationals.png"
+                src="/images/nationals.webp"
                 alt="FTC Nationals"
                 className="aspect-video w-full object-cover group-hover:scale-[1.01] transition-transform"
               />
@@ -431,68 +431,68 @@ export default function App() {
         </div>
       </Section>
 
-    {/* Experience */}
-    <Section
-      id="experience"
-      title="Experience"
-    >
-      <div className="space-y-4">
-        {/* Row 1 */}
-        <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
-          <div>
-            <div className="text-white font-medium">Robotics Team Lead</div>
-            <div className="mt-1 text-sm text-zinc-500">
-              2023–2025+ • Team 24089 Iron Lions
+      {/* Experience */}
+      <Section
+        id="experience"
+        title="Experience"
+      >
+        <div className="space-y-4">
+          {/* Row 1 */}
+          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
+            <div>
+              <div className="text-white font-medium">Robotics Team Lead</div>
+              <div className="mt-1 text-sm text-zinc-500">
+                2023–2025+ • Team 24089 Iron Lions
+              </div>
+            </div>
+          </div>
+
+          {/* Row 2 */}
+          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
+            <div>
+              <div className="text-white font-medium">Robotics Captin</div>
+              <div className="mt-1 text-sm text-zinc-500">Sunshine Coast Grammar School</div>
             </div>
           </div>
         </div>
+      </Section>
 
-        {/* Row 2 */}
-        <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
-          <div>
-            <div className="text-white font-medium">Robotics Captin</div>
-            <div className="mt-1 text-sm text-zinc-500">Sunshine Coast Grammar School</div>
+
+
+      {/* Contact */}
+      <Section id="contact" title="Contact">
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* LEFT: Recent Activity feed (replaces the form) */}
+          <ActivityFeed githubUser="ParadoxIsCoding" />
+
+          {/* RIGHT: your existing contact card stays the same */}
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
+            <p className="text-zinc-400">Prefer email? Reach me at:</p>
+            <a href="mailto:Tahasalman.9t@gmail.com" className="mt-2 inline-flex items-center gap-2 text-white">
+              <Mail className="h-4 w-4" /> Tahasalman.9t@gmail.com
+            </a>
+            <div className="mt-6 flex items-center gap-4">
+              <a
+                href="https://github.com/ParadoxIsCoding"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
+              >
+                <Github className="h-4 w-4" /> GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/in/tahas1/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
+              >
+                <Linkedin className="h-4 w-4" /> LinkedIn
+              </a>
+              <DiscordPresence />
+            </div>
           </div>
         </div>
-      </div>
-    </Section>
-
-
-
-          {/* Contact */}
-    <Section id="contact" title="Contact">
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* LEFT: Recent Activity feed (replaces the form) */}
-        <ActivityFeed githubUser="ParadoxIsCoding" />
-
-        {/* RIGHT: your existing contact card stays the same */}
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <p className="text-zinc-400">Prefer email? Reach me at:</p>
-          <a href="mailto:Tahasalman.9t@gmail.com" className="mt-2 inline-flex items-center gap-2 text-white">
-            <Mail className="h-4 w-4" /> Tahasalman.9t@gmail.com
-          </a>
-          <div className="mt-6 flex items-center gap-4">
-            <a
-              href="https://github.com/ParadoxIsCoding"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
-            >
-              <Github className="h-4 w-4" /> GitHub
-            </a>
-            <a
-              href="https://www.linkedin.com/in/tahas1/"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
-            >
-              <Linkedin className="h-4 w-4" /> LinkedIn
-            </a>
-            <DiscordPresence />
-          </div>
-        </div>
-      </div>
-    </Section>
+      </Section>
 
 
       {/* Footer */}

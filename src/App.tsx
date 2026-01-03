@@ -10,7 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import ActivityFeed from "./components/ActivityFeed";
 
 import { Button } from "./components/ui/button";
@@ -18,45 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import SkillsShowcase from "./components/SkillsShowcase";
 import DiscordPresence from "./components/DiscordPresence";
 
-/* ------------------------------ Typewriter ------------------------------ */
-function Typewriter({
-  phrases,
-  speed = 55,
-  deleteSpeed = 35,
-  pause = 1200,
-}: {
-  phrases: string[];
-  speed?: number;
-  deleteSpeed?: number;
-  pause?: number;
-}) {
-  const [i, setI] = useState(0);
-  const [text, setText] = useState("");
-  const [deleting, setDeleting] = useState(false);
-  const current = phrases[i % phrases.length];
 
-  useEffect(() => {
-    let t: number;
-    if (!deleting && text.length < current.length) {
-      t = window.setTimeout(() => setText(current.slice(0, text.length + 1)), speed);
-    } else if (!deleting && text.length === current.length) {
-      t = window.setTimeout(() => setDeleting(true), pause);
-    } else if (deleting && text.length > 0) {
-      t = window.setTimeout(() => setText(current.slice(0, text.length - 1)), deleteSpeed);
-    } else if (deleting && text.length === 0) {
-      setDeleting(false);
-      setI((p) => p + 1);
-    }
-    return () => clearTimeout(t);
-  }, [text, deleting, current, speed, deleteSpeed, pause]);
-
-  return (
-    <span className="text-indigo-300">
-      {text}
-      <span className="ml-0.5 inline-block w-[1ch] animate-pulse">|</span>
-    </span>
-  );
-}
 
 /* ---------------------------- Particles Canvas (Stars) ------------------- */
 function ParticlesBG({ count = 30 }: { count?: number }) {
@@ -201,11 +163,7 @@ export default function App() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // phrases for the hero’s animated subtitle
-  const phrases = useMemo(
-    () => ["Mechatronics Engineer", "Robotics Champion"],
-    []
-  );
+
 
   return (
     <div className="min-h-screen bg-[#0B0B0F] text-zinc-200 antialiased">
@@ -279,8 +237,8 @@ export default function App() {
 
             {/* Animated subtitle */}
             <p className="mt-4 text-lg text-zinc-400 max-w-2xl">
-              Year 12 Student at Sunshine Coast Grammar School and aspiring{" "}
-              <Typewriter phrases={phrases} />
+              Student at UQ studying{" "}
+              <span className="text-indigo-300">Mechatronics Engineering</span>
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">

@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap');
+
+:root {
+  font-family: 'JetBrains Mono', monospace;
+  background-color: #08080a;
+}
+
+body {
+  margin: 0;
+  background-color: #08080a;
+  color: #cdd6f4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom terminal block blink animation */
+@keyframes blink-caret {
+  from, to { background-color: transparent }
+  50% { background-color: #a6adc8 }
+}
+
+.animate-blink {
+  animation: blink-caret 1s step-end infinite;
+}

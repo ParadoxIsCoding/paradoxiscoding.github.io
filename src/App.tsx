@@ -1,465 +1,318 @@
-// src/App.tsx
+import { useState, useEffect, useRef } from "react";
 import { motion, type Variants } from "framer-motion";
-import {
-  ArrowRight,
-  Github,
-  Linkedin,
-  Mail,
-  FileText,
-  ExternalLink,
-  Sparkles,
-} from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
-import { useEffect, useRef } from "react";
-import ActivityFeed from "./components/ActivityFeed";
-
-import { Button } from "./components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
-import SkillsShowcase from "./components/SkillsShowcase";
-import DiscordPresence from "./components/DiscordPresence";
-
-
-
-/* ---------------------------- Particles Canvas (Stars) ------------------- */
-function ParticlesBG({ count = 30 }: { count?: number }) {
-  const ref = useRef<HTMLCanvasElement>(null);
-  const particles = useRef<
-    { x: number; y: number; vx: number; vy: number; r: number; a: number }[]
-  >([]);
-
-  const resize = () => {
-    const c = ref.current;
-    if (!c) return;
-    const dpr = Math.max(1, window.devicePixelRatio || 1);
-    c.width = Math.floor(window.innerWidth * dpr);
-    c.height = Math.floor(window.innerHeight * dpr);
-    c.style.width = "100%";
-    c.style.height = "100%";
-    const ctx = c.getContext("2d");
-    if (ctx) ctx.scale(dpr, dpr);
-  };
-
-  useEffect(() => {
-    resize();
-    particles.current = Array.from({ length: count }).map(() => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      vx: (Math.random() - 0.5) * 0.08,
-      vy: (Math.random() - 0.5) * 0.08,
-      r: Math.random() * 1.6 + 0.4,
-      a: Math.random() * 0.5 + 0.1,
-    }));
-
-    const c = ref.current!;
-    const ctx = c.getContext("2d")!;
-    let raf = 0;
-
-    const loop = () => {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      ctx.fillStyle = "rgba(255, 255, 255, 1)";
-      particles.current.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < -10) p.x = window.innerWidth + 10;
-        if (p.x > window.innerWidth + 10) p.x = -10;
-        if (p.y < -10) p.y = window.innerHeight + 10;
-        if (p.y > window.innerHeight + 10) p.y = -10;
-        ctx.globalAlpha = p.a;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      ctx.globalAlpha = 1;
-      raf = requestAnimationFrame(loop);
-    };
-
-    raf = requestAnimationFrame(loop);
-    window.addEventListener("resize", resize);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-    };
-  }, [count]);
-
-  return (
-    <canvas
-      ref={ref}
-      className="pointer-events-none fixed inset-0 z-0 opacity-40"
-      aria-hidden="true"
-    />
-  );
+interface HistoryEntry {
+  command: string;
+  output: React.ReactNode;
 }
 
-/* --------------------------------- Motion -------------------------------- */
-const container: Variants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  },
-};
-
-const Section = ({
-  id,
-  title,
-  subtitle,
-  children,
-}: {
-  id: string;
-  title: string;
-  subtitle?: string;
-  children: React.ReactNode;
-}) => (
-  <section id={id} className="relative py-20 md:py-28 scroll-mt-24">
-    <div className="max-w-6xl mx-auto px-6">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={container}
-      >
-        <motion.h2
-          variants={item}
-          className="text-3xl md:text-4xl font-bold tracking-tight text-white"
-        >
-          {title}
-        </motion.h2>
-        {subtitle && (
-          <motion.p variants={item} className="mt-2 text-zinc-400 max-w-2xl">
-            {subtitle}
-          </motion.p>
-        )}
-        <motion.div variants={item} className="mt-8">
-          {children}
-        </motion.div>
-      </motion.div>
-    </div>
-  </section>
-);
-
-const Pill = ({ children }: { children: React.ReactNode }) => (
-  <span className="inline-flex items-center rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs text-zinc-300">
-    {children}
-  </span>
-);
-
 export default function App() {
-  const nav = [
-    { id: "home", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "projects", label: "Projects" },
-    { id: "experience", label: "Experience" },
-    { id: "contact", label: "Contact" },
-  ];
+  const [inputValue, setInputValue] = useState("");
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Stagger animation variants for initial loading
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.18,
+        delayChildren: 0.1,
+      },
+    },
   };
 
+  const lineVariants: Variants = {
+    hidden: { opacity: 0, y: 8 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.45,
+        ease: "easeOut" as const,
+      },
+    },
+  };
 
+  // Pre-populate history on load to match the initial screenshot layout
+  useEffect(() => {
+    setHistory([
+      {
+        command: "whoami",
+        output: (
+          <div className="flex flex-col">
+            <span className="text-[#d8b4fe] text-xl font-bold tracking-wide">Taha Salman</span>
+            <span className="text-[#9399b2] italic mt-0.5">Professional Coffee Consumer</span>
+          </div>
+        ),
+      },
+      {
+        command: "links",
+        output: (
+          <div className="grid grid-cols-[80px_24px_1fr] gap-x-2 gap-y-2.5 font-mono text-[#a6adc8] max-w-md mt-1">
+            <span className="text-[#a6e3a1]">github</span>
+            <span className="flex items-center justify-start text-[#89b4fa]">
+              <Github className="w-4.5 h-4.5" />
+            </span>
+            <a
+              href="https://github.com/ParadoxIsCoding"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#89b4fa] hover:text-[#b4befe] hover:underline transition-colors break-all"
+            >
+              github.com/ParadoxIsCoding
+            </a>
+
+            <span className="text-[#a6e3a1]">linkedin</span>
+            <span className="flex items-center justify-start text-[#89b4fa]">
+              <Linkedin className="w-4.5 h-4.5" />
+            </span>
+            <a
+              href="https://www.linkedin.com/in/tahas1/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#89b4fa] hover:text-[#b4befe] hover:underline transition-colors break-all"
+            >
+              linkedin.com/in/tahas1
+            </a>
+
+            <span className="text-[#a6e3a1]">email</span>
+            <span className="flex items-center justify-start text-[#89b4fa]">
+              <Mail className="w-4.5 h-4.5" />
+            </span>
+            <a
+              href="mailto:tahasalman.9t@gmail.com"
+              className="text-[#89b4fa] hover:text-[#b4befe] hover:underline transition-colors break-all"
+            >
+              tahasalman.9t@gmail.com
+            </a>
+          </div>
+        ),
+      },
+    ]);
+
+    // Focus terminal input on load
+    inputRef.current?.focus();
+  }, []);
+
+  // Scroll to bottom of terminal when history changes
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [history]);
+
+  const focusInput = () => {
+    inputRef.current?.focus();
+  };
+
+  const getCommandOutput = (cmd: string): React.ReactNode => {
+    const cleanCmd = cmd.trim().toLowerCase();
+
+    switch (cleanCmd) {
+      case "whoami":
+        return (
+          <div className="flex flex-col">
+            <span className="text-[#d8b4fe] text-xl font-bold tracking-wide">Taha Salman</span>
+            <span className="text-[#9399b2] italic mt-0.5">Professional Coffee Consumer</span>
+          </div>
+        );
+      case "links":
+        return (
+          <div className="grid grid-cols-[80px_24px_1fr] gap-x-2 gap-y-2.5 font-mono text-[#a6adc8] max-w-md">
+            <span className="text-[#a6e3a1]">github</span>
+            <span className="flex items-center justify-start text-[#89b4fa]">
+              <Github className="w-4.5 h-4.5" />
+            </span>
+            <a
+              href="https://github.com/ParadoxIsCoding"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#89b4fa] hover:text-[#b4befe] hover:underline transition-colors break-all"
+            >
+              github.com/ParadoxIsCoding
+            </a>
+
+            <span className="text-[#a6e3a1]">linkedin</span>
+            <span className="flex items-center justify-start text-[#89b4fa]">
+              <Linkedin className="w-4.5 h-4.5" />
+            </span>
+            <a
+              href="https://www.linkedin.com/in/tahas1/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#89b4fa] hover:text-[#b4befe] hover:underline transition-colors break-all"
+            >
+              linkedin.com/in/tahas1
+            </a>
+
+            <span className="text-[#a6e3a1]">email</span>
+            <span className="flex items-center justify-start text-[#89b4fa]">
+              <Mail className="w-4.5 h-4.5" />
+            </span>
+            <a
+              href="mailto:tahasalman.9t@gmail.com"
+              className="text-[#89b4fa] hover:text-[#b4befe] hover:underline transition-colors break-all"
+            >
+              tahasalman.9t@gmail.com
+            </a>
+          </div>
+        );
+      case "projects":
+        return (
+          <div className="text-[#a6adc8] space-y-1">
+            <div>
+              - <span className="text-[#f9e2af] font-semibold">FTC Robotics</span>: 1st place in FTC APOC Championship 2025 & 2024 Nationals Champion.
+            </div>
+            <div>
+              - <span className="text-[#f9e2af] font-semibold">paradoxiscoding.github.io</span>: This beautiful interactive portfolio site.
+            </div>
+          </div>
+        );
+      case "help":
+        return (
+          <div className="text-[#a6adc8]">
+            Available commands: <span className="text-[#f9e2af]">whoami</span>,{" "}
+            <span className="text-[#f9e2af]">links</span>,{" "}
+            <span className="text-[#f9e2af]">projects</span>,{" "}
+            <span className="text-[#f9e2af]">coffee</span>,{" "}
+            <span className="text-[#f9e2af]">clear</span>,{" "}
+            <span className="text-[#f9e2af]">help</span>
+          </div>
+        );
+      case "coffee":
+        return (
+          <div className="text-[#a6adc8] space-y-2">
+            <pre className="text-[#f9e2af] text-xs leading-none">
+{`   (  )   (  )
+    )  (   )  (
+   (____) (____)
+   |    | |    |___
+   |____| |____|   |
+   (====) (====)---'`}
+            </pre>
+            <div>A fresh cup of coffee has been brewed for you! ☕</div>
+          </div>
+        );
+      case "clear":
+        return "clear";
+      case "":
+        return null;
+      default:
+        return (
+          <div className="text-[#f38ba8]">
+            sh: command not found: {cmd}. Type <span className="underline font-semibold text-[#f9e2af] cursor-pointer" onClick={() => setInputValue("help")}>help</span> for a list of commands.
+          </div>
+        );
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const output = getCommandOutput(inputValue);
+      if (output === "clear") {
+        setHistory([]);
+      } else {
+        setHistory((prev) => [...prev, { command: inputValue, output }]);
+      }
+      setInputValue("");
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-[#0B0B0F] text-zinc-200 antialiased">
-      {/* Background accents + stars */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(120,119,198,0.15),rgba(0,0,0,0))]" />
-        <div
-          className="absolute inset-0 opacity-40 mix-blend-soft-light"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-      </div>
-      <ParticlesBG count={40} />
+    <div
+      onClick={focusInput}
+      className="min-h-screen w-full flex items-center justify-center bg-[#08080a] text-[#cdd6f4] p-6 sm:p-12 selection:bg-[#313244] selection:text-[#cdd6f4] relative overflow-hidden font-mono cursor-text"
+    >
+      {/* Background soft ambient glows */}
+      <div className="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-blue-500/[0.02] rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-1/4 w-[300px] h-[300px] bg-purple-500/[0.02] rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Navbar */}
-      <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-zinc-900/60 border-b border-zinc-800">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <button
-            onClick={() => scrollTo("home")}
-            className="group inline-flex items-center gap-2"
-          >
+      {/* Main card container */}
+      <div className="w-full max-w-3xl flex flex-col md:flex-row items-center md:items-start justify-center gap-10 md:gap-14 relative z-10 py-10">
+        
+        {/* Left Side: Avatar */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative group shrink-0"
+        >
+          <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/15 to-purple-500/15 rounded-2xl blur-md opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
+          <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border border-[#2d3139] shadow-2xl bg-[#111115]">
             <img
-              src="/images/logo.jpg"
-              alt="Taha Salman logo"
-              className="h-8 w-8 rounded-xl ring-1 ring-white/10 object-cover transform transition-transform duration-200 group-hover:scale-110"
+              src="/images/avatar.jpg"
+              alt="Taha Salman Avatar"
+              className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
             />
-            <span className="text-sm text-zinc-400 group-hover:text-zinc-200 transition">
-              Taha Salman
-            </span>
-          </button>
-
-          <nav className="hidden md:flex items-center gap-1">
-            {nav.map((n) => (
-              <button
-                key={n.id}
-                onClick={() => scrollTo(n.id)}
-                className="px-3 py-2 rounded-xl text-sm text-zinc-300 hover:text-white hover:bg-zinc-800/60 transition"
-              >
-                {n.label}
-              </button>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <a href="#contact">
-              <Button size="sm" className="rounded-xl">
-                Contact <ArrowRight className="ml-1 h-4 w-4" />
-              </Button>
-            </a>
           </div>
-        </div>
-      </header>
+        </motion.div>
 
-      {/* Hero */}
-      <section id="home" className="relative z-10 pt-20 md:pt-28 pb-14">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+        {/* Right Side: Interactive Terminal Content */}
+        <div className="flex-1 w-full flex flex-col justify-start text-[14px] sm:text-[15px] leading-relaxed">
+          
+          {/* Scrollable Command History Panel */}
+          <div
+            ref={scrollContainerRef}
+            className="max-h-[380px] overflow-y-auto space-y-5 pr-2 scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent"
           >
-            <Pill>
-              <Sparkles className="mr-1 h-4 w-4" /> Hello World!
-            </Pill>
-            <h1 className="mt-4 text-4xl md:text-6xl font-extrabold leading-tight text-white">
-              Taha Salman
-            </h1>
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="space-y-5"
+            >
+              {history.map((entry, index) => (
+                <motion.div key={index} variants={lineVariants} className="space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[#89b4fa]">taha@paradox:~$</span>
+                    <span className="text-[#e5c07b]">{entry.command}</span>
+                  </div>
+                  {entry.output && (
+                    <div className="pl-0">
+                      {entry.output}
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </motion.div>
+            
+            {/* Element to scroll to */}
+            <div ref={bottomRef} />
+          </div>
 
-            {/* Animated subtitle */}
-            <p className="mt-4 text-lg text-zinc-400 max-w-2xl">
-              Student at UQ studying{" "}
-              <span className="text-indigo-300">Mechatronics Engineering</span>
-            </p>
+          {/* Active typing prompt line */}
+          <div className="flex items-center gap-2 pt-4 border-t border-[#1e2030]/40 mt-4">
+            <span className="text-[#89b4fa] shrink-0">taha@paradox:~$</span>
+            
+            {/* Hidden Input field for capturing key events */}
+            <input
+              ref={inputRef}
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="absolute opacity-0 w-0 h-0 pointer-events-none"
+              aria-label="Terminal input"
+              autoFocus
+            />
 
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Button onClick={() => scrollTo("projects")} className="rounded-xl">
-                See Projects <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-              <a href="#" aria-label="Resume placeholder">
-                <Button variant="secondary" className="rounded-xl">
-                  <FileText className="mr-2 h-4 w-4" /> Download CV
-                </Button>
-              </a>
-            </div>
-
-            {/* Social links */}
-            <div className="mt-6 flex items-center gap-3">
-              <a
-                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
-                href="https://github.com/ParadoxIsCoding"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Github className="h-4 w-4" /> GitHub
-              </a>
-              <a
-                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
-                href="https://www.linkedin.com/in/tahas1/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Linkedin className="h-4 w-4" /> LinkedIn
-              </a>
-              <a
-                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition"
-                href="mailto:Tahasalman.9t@gmail.com"
-              >
-                <Mail className="h-4 w-4" /> Email
-              </a>
-              <DiscordPresence />
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="relative"
-          >
-            <div className="absolute -inset-1 bg-gradient-to-tr from-indigo-500/40 via-fuchsia-500/30 to-cyan-500/30 blur-2xl rounded-3xl opacity-40" />
-            <SkillsShowcase />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* About */}
-      <Section
-        id="about"
-        title="About"
-      >
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card className="rounded-2xl">
-            <CardHeader>
-              <CardTitle className="text-white text-lg">FTC APOC Championship 2025</CardTitle>
-            </CardHeader>
-            <CardContent className="text-zinc-400">
-              1<sup>st</sup> in the Asia Pacific Open Championships with my Team 20489
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-2xl">
-            <CardHeader>
-              <CardTitle className="text-white text-lg">FTC Nationals Champion 2024</CardTitle>
-            </CardHeader>
-            <CardContent className="text-zinc-400">
-              2<sup>nd</sup> in the Australian National Championships with my Team 24089
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-2xl">
-            <CardHeader>
-              <CardTitle className="text-white text-lg">-</CardTitle>
-            </CardHeader>
-            <CardContent className="text-zinc-400">
-              -
-            </CardContent>
-          </Card>
-        </div>
-      </Section>
-
-      {/* Projects */}
-      <Section
-        id="projects"
-        title="Projects"
-      >
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Card 1: Robotics – FTC */}
-          <Card className="group rounded-2xl overflow-hidden">
-            <div className="relative">
-              <img
-                src="/images/apoc_hang.webp"
-                alt="APOC Hang - FTC Robotics"
-                className="aspect-video w-full object-cover group-hover:scale-[1.01] transition-transform"
-              />
-              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
-            </div>
-            <CardHeader>
-              <CardTitle className="text-white">APOC 2025</CardTitle>
-            </CardHeader>
-            <CardContent className="text-zinc-400">
-              Apart of Team 24089 Iron Lions in the First Tech Challenge™
-              <div className="mt-3">
-                <a
-                  href="https://youtu.be/eLr15aCYTW8?si=Dqk81KM3Jg_pb6ee"
-                  className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View <ExternalLink className="h-3.5 w-3.5" />
-                </a>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Card 2: Nationals image */}
-          <Card className="group rounded-2xl overflow-hidden">
-            <div className="relative">
-              <img
-                src="/images/nationals.webp"
-                alt="FTC Nationals"
-                className="aspect-video w-full object-cover group-hover:scale-[1.01] transition-transform"
-              />
-              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
-            </div>
-            <CardHeader>
-              <CardTitle className="text-white">Nationals 2024</CardTitle>
-            </CardHeader>
-            <CardContent className="text-zinc-400">
-              Apart of Team 24089 Iron Lions in the First Tech Challenge™
-              <div className="mt-3">
-                <a
-                  href="https://youtu.be/x4z5jL-8w8A?si=uBjjYfZjW1G_maHx"
-                  className="inline-flex items-center gap-1 text-sm text-indigo-300 hover:text-indigo-200"
-                >
-                  View <ExternalLink className="h-3.5 w-3.5" />
-                </a>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </Section>
-
-      {/* Experience */}
-      <Section
-        id="experience"
-        title="Experience"
-      >
-        <div className="space-y-4">
-          {/* Row 1 */}
-          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
-            <div>
-              <div className="text-white font-medium">Robotics Team Lead</div>
-              <div className="mt-1 text-sm text-zinc-500">
-                2023–2025+ • Team 24089 Iron Lions
-              </div>
+            {/* Display typing value with flashing cursor block */}
+            <div className="flex items-center flex-1 break-all">
+              <span className="text-[#e5c07b] whitespace-pre-wrap">{inputValue}</span>
+              <span className="inline-block w-[9px] h-[16px] bg-[#a6adc8] animate-blink align-middle ml-1 shrink-0" />
             </div>
           </div>
 
-          {/* Row 2 */}
-          <div className="flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 sm:p-6 ring-1 ring-inset ring-white/5 backdrop-blur transition-colors hover:bg-zinc-900/60">
-            <div>
-              <div className="text-white font-medium">Robotics Captin</div>
-              <div className="mt-1 text-sm text-zinc-500">Sunshine Coast Grammar School</div>
-            </div>
-          </div>
+          {/* Muted Tip Hint */}
+          <span className="text-[11px] text-[#585b70] mt-3 block select-none">
+            [Hint: Click anywhere and type. Try: <span className="underline">help</span>, <span className="underline">coffee</span>, or <span className="underline">projects</span>]
+          </span>
+
         </div>
-      </Section>
-
-
-
-      {/* Contact */}
-      <Section id="contact" title="Contact">
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* LEFT: Recent Activity feed (replaces the form) */}
-          <ActivityFeed githubUser="ParadoxIsCoding" />
-
-          {/* RIGHT: your existing contact card stays the same */}
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
-            <p className="text-zinc-400">Prefer email? Reach me at:</p>
-            <a href="mailto:Tahasalman.9t@gmail.com" className="mt-2 inline-flex items-center gap-2 text-white">
-              <Mail className="h-4 w-4" /> Tahasalman.9t@gmail.com
-            </a>
-            <div className="mt-6 flex items-center gap-4">
-              <a
-                href="https://github.com/ParadoxIsCoding"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
-              >
-                <Github className="h-4 w-4" /> GitHub
-              </a>
-              <a
-                href="https://www.linkedin.com/in/tahas1/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-zinc-400 hover:text-white"
-              >
-                <Linkedin className="h-4 w-4" /> LinkedIn
-              </a>
-              <DiscordPresence />
-            </div>
-          </div>
-        </div>
-      </Section>
-
-
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-zinc-800 py-10">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-zinc-500">© {new Date().getFullYear()} Taha Salman. All rights reserved.</p>
-          <div className="text-xs text-zinc-500">Built with React + Tailwind + Framer Motion.</div>
-        </div>
-      </footer>
+      </div>
     </div>
   );
 }

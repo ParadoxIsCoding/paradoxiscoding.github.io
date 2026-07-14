@@ -1,9 +1,25 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "../index.html";
+@source "./";
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap');
+@font-face {
+  font-family: "JetBrains Mono Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url("@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "JetBrains Mono Variable";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url("@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-italic.woff2") format("woff2-variations");
+}
 
 :root {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
   background-color: #08080a;
 }
 
@@ -11,8 +27,52 @@ body {
   margin: 0;
   background-color: #08080a;
   color: #cdd6f4;
+  background-image:
+    radial-gradient(circle at 25% 35%, rgb(59 130 246 / 0.035), transparent 28%),
+    radial-gradient(circle at 75% 65%, rgb(168 85 247 / 0.035), transparent 28%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.terminal-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.avatar-shell::before {
+  position: absolute;
+  inset: -6px;
+  content: "";
+  border-radius: 1rem;
+  background: linear-gradient(90deg, rgb(59 130 246 / 0.15), rgb(168 85 247 / 0.15));
+  opacity: 0.75;
+  transition: opacity 1s;
+}
+
+.avatar-shell:hover::before {
+  opacity: 1;
+  transition-duration: 200ms;
+}
+
+@keyframes avatar-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes line-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.avatar-enter {
+  animation: avatar-in 600ms ease-out both;
+}
+
+.terminal-line {
+  animation: line-in 450ms ease-out both;
 }
 
 /* Custom terminal block blink animation */
@@ -23,4 +83,16 @@ body {
 
 .animate-blink {
   animation: blink-caret 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

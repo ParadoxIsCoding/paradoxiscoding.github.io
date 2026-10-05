@@ -27,7 +27,7 @@ const linksMarkup = (withTopMargin = false) => `
     <a href="mailto:tahasalman.9t@gmail.com" class="text-[#89b4fa] hover:text-[#b4befe] hover:underline transition-colors break-all">tahasalman.9t@gmail.com</a>
   </div>`;
 
-type Photo = { src: string; caption: string };
+type Photo = { src: string; caption: string; diagram?: boolean };
 
 const commandLink = (command: string, label = command) =>
   `<button type="button" data-command="${command}" class="text-[#f9e2af] font-semibold underline decoration-dotted underline-offset-4 hover:text-[#fab387] cursor-pointer">${label}</button>`;
@@ -35,8 +35,8 @@ const commandLink = (command: string, label = command) =>
 const gallery = (photos: Photo[]) => `
   <div class="flex flex-wrap gap-2 pt-1">${photos
     .map(
-      ({ src, caption }) =>
-        `<button type="button" data-photo="/images/projects/${src}.webp" data-caption="${caption}" aria-label="View photo: ${caption}" class="block overflow-hidden rounded-md border border-[#2d3139] hover:border-[#89b4fa] transition-colors cursor-zoom-in"><img src="/images/projects/${src}-thumb.webp" alt="${caption}" loading="lazy" decoding="async" class="w-28 h-20 object-cover" /></button>`,
+      ({ src, caption, diagram }) =>
+        `<button type="button" data-photo="/images/projects/${src}.webp" data-caption="${caption}" aria-label="View photo: ${caption}" class="block overflow-hidden rounded-md border border-[#2d3139] hover:border-[#89b4fa] transition-colors cursor-zoom-in"><img src="/images/projects/${src}-thumb.webp" alt="${caption}" loading="lazy" decoding="async" class="w-28 h-20 ${diagram ? "object-contain bg-white p-1" : "object-cover"}" /></button>`,
     )
     .join("")}</div>`;
 
@@ -104,11 +104,13 @@ const engg1100Markup = `
       "Four 12 V N20 gearmotor winches form a spread mooring that tensions or slackens as the water changes",
       "ESP32-S3 runs a phone web app over its own Wi-Fi, drives L9110S H-bridges and reads tilt from an IMU",
       "Stops all motors if the connection drops. Parts came to about $124 against a $170 budget",
-      "My part: picked the microcontroller with a weighted decision matrix. The ESP32-S3 scored 4.86, ahead of the Pico W at 4.38, and stayed on top in every sensitivity scenario",
+      "My part: designed the entire house and did all of the wiring and electronics",
     ])}
     ${gallery([
       { src: "engg1100-house", caption: "The prototype on the UQ Innovate flood test rig" },
       { src: "engg1100-render", caption: "CAD render of the evacuation centre" },
+      { src: "engg1100-circuit", caption: "Power and control block diagram", diagram: true },
+      { src: "engg1100-flowchart", caption: "ESP32-S3 control program flowchart", diagram: true },
     ])}
   </div>`;
 

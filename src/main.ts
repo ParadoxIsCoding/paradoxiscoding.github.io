@@ -154,7 +154,7 @@ document.querySelector<HTMLDivElement>("#root")!.innerHTML = `
       <section class="flex-1 w-full flex flex-col justify-start text-[14px] sm:text-[15px] leading-relaxed" aria-label="Interactive terminal">
         <div id="history" class="max-h-[380px] overflow-y-auto space-y-5 pr-2 scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent" aria-live="polite"></div>
         <div class="flex items-center gap-2 pt-4 border-t border-[#1e2030]/40 mt-4">
-          <span class="text-[#89b4fa] shrink-0">taha@paradox:~$</span>
+          <span class="text-[#89b4fa] shrink-0">taha@pitwall:~$</span>
           <input id="terminal-input" type="text" class="terminal-input" aria-label="Terminal input" autocomplete="off" autocapitalize="off" spellcheck="false" />
           <div class="flex items-center flex-1 break-all" aria-hidden="true"><span id="typed-value" class="text-[#e5c07b] whitespace-pre-wrap"></span><span class="inline-block w-[9px] h-[16px] bg-[#a6adc8] animate-blink align-middle ml-1 shrink-0"></span></div>
         </div>
@@ -184,7 +184,7 @@ const appendEntry = (command: string, initial = false, delay = 0) => {
 
   const prompt = document.createElement("div");
   prompt.className = "flex items-center gap-2";
-  prompt.innerHTML = '<span class="text-[#89b4fa]">taha@paradox:~$</span>';
+  prompt.innerHTML = '<span class="text-[#89b4fa]">taha@pitwall:~$</span>';
   const commandText = document.createElement("span");
   commandText.className = "text-[#e5c07b]";
   commandText.textContent = command;

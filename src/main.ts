@@ -46,6 +46,7 @@ const bullets = (items: string[]) =>
 const projectsMarkup = `
   <div class="text-[#a6adc8] space-y-1.5">
     <div>- ${commandLink("ftc", "Iron Lions #24089")}: Team Lead. FTC Robotics. APOC champions, now headed to Worlds.</div>
+    <div>- ${commandLink("drc", "Team SURGE")}: Autonomous CNN-driven racer. 2nd place Newcomers, QUT Droid Racing Challenge 2026.</div>
     <div>- ${commandLink("timekeeper", "TimeKeeper")}: ESP32-S3 desk clock that shows how much of the day has gone.</div>
     <div>- ${commandLink("engg1100", "ENGG1100")}: Flood-resistant evacuation centre that floats and holds its position.</div>
     <div>- <span class="text-[#f9e2af] font-semibold">paradoxiscoding.github.io</span>: This beautiful interactive portfolio site.</div>
@@ -75,6 +76,21 @@ const ftcMarkup = `
     ${season("DECODE: Nationals 2025", "Qualified for the FIRST World Championship in Houston, Texas", [
       { src: "decode-worlds", caption: "Franklin Division, FIRST Championship, Houston" },
     ])}
+  </div>`;
+
+const drcMarkup = `
+  <div class="text-[#a6adc8] space-y-2">
+    <div><span class="text-[#f9e2af] font-semibold">Team SURGE</span>: Droid Racing Challenge 2026, hosted by the QUT Robotics Club</div>
+    <div><span class="text-[#cba6f7]">Newcomers division</span> <span class="text-[#585b70]">-&gt;</span> <span class="text-[#a6e3a1]">2nd place</span></div>
+    <div>An autonomous robot that uses a convolutional neural network to learn the track and drive it by itself, staying between the yellow and blue lane lines.</div>
+    ${bullets([
+      "Trained by imitation: we drove it by keyboard while a Jetson recorded camera frames and the matching motor commands",
+      "PyTorch CNN maps a 160x90 camera frame straight to left and right motor power",
+      "Runs on the Jetson GPU with TorchScript and sends motor commands to an ESP32 over Wi-Fi",
+      "Detects the green finish line by colour and stops itself, with a launch boost off the start",
+      "Built our own tools for live HSV colour tuning and streaming the camera feed to a laptop",
+    ])}
+    ${gallery([{ src: "drc-surge", caption: "Second place, Newcomers division: Droid Racing Challenge 2026" }])}
   </div>`;
 
 const timekeeperMarkup = `
@@ -123,12 +139,14 @@ const outputMarkup = (command: string, initial = false): string | null => {
       return projectsMarkup;
     case "ftc":
       return ftcMarkup;
+    case "drc":
+      return drcMarkup;
     case "timekeeper":
       return timekeeperMarkup;
     case "engg1100":
       return engg1100Markup;
     case "help":
-      return '<div class="text-[#a6adc8]">Available commands: <span class="text-[#f9e2af]">whoami</span>, <span class="text-[#f9e2af]">links</span>, <span class="text-[#f9e2af]">projects</span>, <span class="text-[#f9e2af]">ftc</span>, <span class="text-[#f9e2af]">timekeeper</span>, <span class="text-[#f9e2af]">engg1100</span>, <span class="text-[#f9e2af]">coffee</span>, <span class="text-[#f9e2af]">clear</span>, <span class="text-[#f9e2af]">help</span></div>';
+      return '<div class="text-[#a6adc8]">Available commands: <span class="text-[#f9e2af]">whoami</span>, <span class="text-[#f9e2af]">links</span>, <span class="text-[#f9e2af]">projects</span>, <span class="text-[#f9e2af]">ftc</span>, <span class="text-[#f9e2af]">drc</span>, <span class="text-[#f9e2af]">timekeeper</span>, <span class="text-[#f9e2af]">engg1100</span>, <span class="text-[#f9e2af]">coffee</span>, <span class="text-[#f9e2af]">clear</span>, <span class="text-[#f9e2af]">help</span></div>';
     case "coffee":
       return `<div class="text-[#a6adc8] space-y-2"><pre class="text-[#f9e2af] text-xs leading-none">   (  )   (  )
     )  (   )  (

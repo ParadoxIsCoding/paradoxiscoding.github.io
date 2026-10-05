@@ -1,0 +1,84 @@
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))s(a);new MutationObserver(a=>{for(const n of a)if(n.type==="childList")for(const c of n.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&s(c)}).observe(document,{childList:!0,subtree:!0});function o(a){const n={};return a.integrity&&(n.integrity=a.integrity),a.referrerPolicy&&(n.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?n.credentials="include":a.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function s(a){if(a.ep)return;a.ep=!0;const n=o(a);fetch(a.href,n)}})();const C=50,m=e=>`<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${{github:'<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.4 4 5 5 0 0 0 19.3.5S18.2.1 15 1.8a13.4 13.4 0 0 0-7 0C4.8.1 3.7.5 3.7.5A5 5 0 0 0 3.6 4a5.4 5.4 0 0 0-1.4 3.7c0 5.4 3.5 6.5 6.8 7A4.8 4.8 0 0 0 8 18v4"/><path d="M8 19c-3 .9-3-1.5-4-2"/>',linkedin:'<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>',mail:'<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>'}[e]}</svg>`,E=(e=!1)=>`
+  <div class="grid grid-cols-[80px_24px_1fr] gap-x-2 gap-y-2.5 font-mono text-[#a6adc8] max-w-md${e?" mt-1":""}">
+    <span class="text-[#a6e3a1]">github</span>
+    <span class="flex items-center justify-start text-[#89b4fa]">${m("github")}</span>
+    <a href="https://github.com/ParadoxIsCoding" target="_blank" rel="noreferrer" class="text-[#89b4fa] hover:text-[#b4befe] hover:underline transition-colors break-all">github.com/ParadoxIsCoding</a>
+    <span class="text-[#a6e3a1]">linkedin</span>
+    <span class="flex items-center justify-start text-[#89b4fa]">${m("linkedin")}</span>
+    <a href="https://www.linkedin.com/in/tahas1/" target="_blank" rel="noreferrer" class="text-[#89b4fa] hover:text-[#b4befe] hover:underline transition-colors break-all">linkedin.com/in/tahas1</a>
+    <span class="text-[#a6e3a1]">email</span>
+    <span class="flex items-center justify-start text-[#89b4fa]">${m("mail")}</span>
+    <a href="mailto:tahasalman.9t@gmail.com" class="text-[#89b4fa] hover:text-[#b4befe] hover:underline transition-colors break-all">tahasalman.9t@gmail.com</a>
+  </div>`,p=(e,t=e)=>`<button type="button" data-command="${e}" class="text-[#f9e2af] font-semibold underline decoration-dotted underline-offset-4 hover:text-[#fab387] cursor-pointer">${t}</button>`,u=e=>`
+  <div class="flex flex-wrap gap-2 pt-1">${e.map(({src:t,caption:o,diagram:s})=>`<button type="button" data-photo="/images/projects/${t}.webp" data-caption="${o}" aria-label="View photo: ${o}" class="block overflow-hidden rounded-md border border-[#2d3139] hover:border-[#89b4fa] transition-colors cursor-zoom-in"><img src="/images/projects/${t}-thumb.webp" alt="${o}" loading="lazy" decoding="async" class="w-28 h-20 ${s?"object-contain bg-white p-1":"object-cover"}" /></button>`).join("")}</div>`,v=e=>`<ul class="space-y-0.5">${e.map(t=>`<li>- ${t}</li>`).join("")}</ul>`,S=`
+  <div class="text-[#a6adc8] space-y-1.5">
+    <div>- ${p("ftc","Iron Lions #24089")}: Team Lead. FTC Robotics. APOC champions, now headed to Worlds.</div>
+    <div>- ${p("drc","Team SURGE")}: Autonomous CNN-driven racer. 2nd place Newcomers, QUT Droid Racing Challenge 2026.</div>
+    <div>- ${p("timekeeper","TimeKeeper")}: ESP32-S3 desk clock that shows how much of the day has gone.</div>
+    <div>- ${p("engg1100","ENGG1100")}: Flood-resistant evacuation centre that floats and holds its position.</div>
+    <div>- <span class="text-[#f9e2af] font-semibold">paradoxiscoding.github.io</span>: This beautiful interactive portfolio site.</div>
+    <div class="text-[#585b70] text-xs pt-1">Click a project or type its command for details.</div>
+  </div>`,f=(e,t,o)=>`
+  <div class="space-y-1">
+    <div><span class="text-[#cba6f7]">${e}</span> <span class="text-[#585b70]">-&gt;</span> <span class="text-[#a6e3a1]">${t}</span></div>
+    ${u(o)}
+  </div>`,T=`
+  <div class="text-[#a6adc8] space-y-3">
+    <div><span class="text-[#f9e2af] font-semibold">Iron Lions #24089</span>: <span class="text-[#89b4fa]">Team Lead</span>, <span class="italic">FIRST</span> Tech Challenge</div>
+    ${f("Into The Deep: Nationals 2024","2nd place in Australia",[{src:"itd-nationals-2024",caption:"Into The Deep robot, Nationals 2024"}])}
+    ${f("Into The Deep: APOC 2025","1st place, Asia Pacific Open Championship",[{src:"itd-apoc-team",caption:"Winning alliance at APOC 2025"},{src:"itd-apoc-robot",caption:"Into The Deep robot at APOC 2025"},{src:"itd-apoc-field",caption:"Into The Deep robot on the field"}])}
+    ${f("DECODE: Regionals 2025","1st place",[{src:"decode-cad",caption:"DECODE robot CAD render"}])}
+    ${f("DECODE: Nationals 2025","Qualified for the FIRST World Championship in Houston, Texas",[{src:"decode-worlds",caption:"Franklin Division, FIRST Championship, Houston"}])}
+  </div>`,$=`
+  <div class="text-[#a6adc8] space-y-2">
+    <div><span class="text-[#f9e2af] font-semibold">Team SURGE</span>: Droid Racing Challenge 2026, hosted by the QUT Robotics Club</div>
+    <div><span class="text-[#cba6f7]">Newcomers division</span> <span class="text-[#585b70]">-&gt;</span> <span class="text-[#a6e3a1]">2nd place</span></div>
+    <div>An autonomous robot that uses a convolutional neural network to learn the track and drive it by itself, staying between the yellow and blue lane lines.</div>
+    ${v(["Trained by imitation: we drove it by keyboard while a Jetson recorded camera frames and the matching motor commands","PyTorch CNN maps a 160x90 camera frame straight to left and right motor power","Runs on the Jetson GPU with TorchScript and sends motor commands to an ESP32 over Wi-Fi","Detects the green finish line by colour and stops itself, with a launch boost off the start","Built our own tools for live HSV colour tuning and streaming the camera feed to a laptop"])}
+    ${u([{src:"drc-surge",caption:"Second place, Newcomers division: Droid Racing Challenge 2026"}])}
+  </div>`,P=`
+  <div class="text-[#a6adc8] space-y-2">
+    <div><span class="text-[#f9e2af] font-semibold">TimeKeeper</span>: an ESP32-S3 desk clock with a 128x64 OLED that shows what percentage of the day is done.</div>
+    <pre class="text-[#89dceb] text-xs leading-snug border border-[#2d3139] rounded-md px-3 py-2 w-fit bg-[#0d0d11]">WED 12 AUG             WiFi
+       DAY COMPLETE
+          42.123%
+ ██████████░░░░░░░░░░░░
+        10:06:34 AM</pre>
+    ${v(["Syncs time over Wi-Fi and shows the day's progress to three decimal places, with a progress bar","Tap the accelerometer to switch between the clock, an exam countdown and local weather (Open-Meteo)","Exam countdown moves to the next exam automatically and shows seconds in the final 24 hours","Overnight the display dims and turns off, then wakes on any nearby vibration","Keeps time when Wi-Fi drops, reconnects on its own and shows status instead of failing silently"])}
+    <div class="text-[#585b70] text-xs">ESP32-S3 · SH1106 OLED (SPI) · MMA8452Q (I²C) · C++ / PlatformIO · native unit tests</div>
+  </div>`,L=`
+  <div class="text-[#a6adc8] space-y-2">
+    <div><span class="text-[#f9e2af] font-semibold">Station-Keeping Flood Resistant Evacuation Centre</span>: ENGG1100, UQ (Team Lavender, 2026)</div>
+    <div>A proof-of-concept evacuation centre for flood-prone areas like the Philippines. It floats as the water rises, stays over its site in wind and shifting loads, and settles back as the water goes down.</div>
+    ${v(["Wide XPS foam raft with a plywood deck and a 3D-printed PLA shell for a low centre of gravity","Four 12 V N20 gearmotor winches form a spread mooring that tensions or slackens as the water changes","ESP32-S3 runs a phone web app over its own Wi-Fi, drives L9110S H-bridges and reads tilt from an IMU","Stops all motors if the connection drops. Parts came to about $124 against a $170 budget"])}
+    ${u([{src:"engg1100-house",caption:"The prototype on the UQ Innovate flood test rig"},{src:"engg1100-render",caption:"CAD render of the evacuation centre"},{src:"engg1100-circuit",caption:"Power and control block diagram",diagram:!0},{src:"engg1100-flowchart",caption:"ESP32-S3 control program flowchart",diagram:!0}])}
+  </div>`,_=(e,t=!1)=>{switch(e.trim().toLowerCase()){case"whoami":return'<div class="flex flex-col"><span class="text-[#d8b4fe] text-xl font-bold tracking-wide">Taha Salman</span><span class="text-[#9399b2] italic mt-0.5">Professional Coffee Consumer</span></div>';case"links":return E(t);case"projects":return S;case"ftc":return T;case"drc":return $;case"timekeeper":return P;case"engg1100":return L;case"help":return'<div class="text-[#a6adc8]">Available commands: <span class="text-[#f9e2af]">whoami</span>, <span class="text-[#f9e2af]">links</span>, <span class="text-[#f9e2af]">projects</span>, <span class="text-[#f9e2af]">ftc</span>, <span class="text-[#f9e2af]">drc</span>, <span class="text-[#f9e2af]">timekeeper</span>, <span class="text-[#f9e2af]">engg1100</span>, <span class="text-[#f9e2af]">coffee</span>, <span class="text-[#f9e2af]">clear</span>, <span class="text-[#f9e2af]">help</span></div>';case"coffee":return`<div class="text-[#a6adc8] space-y-2"><pre class="text-[#f9e2af] text-xs leading-none">   (  )   (  )
+    )  (   )  (
+   (____) (____)
+   |    | |    |___
+   |____| |____|   |
+   (====) (====)---'</pre><div>A fresh cup of coffee has been brewed for you! ☕</div></div>`;case"":return null;default:return"not-found"}};document.querySelector("#root").innerHTML=`
+  <main id="terminal-app" class="min-h-dvh w-full flex items-center justify-center bg-[#08080a] text-[#cdd6f4] p-6 sm:p-12 selection:bg-[#313244] selection:text-[#cdd6f4] relative overflow-hidden font-mono cursor-text">
+    <div class="w-full max-w-3xl flex flex-col md:flex-row items-center md:items-start justify-center gap-10 md:gap-14 relative z-10 py-10">
+      <div class="avatar-enter avatar-shell relative group shrink-0">
+        <div class="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border border-[#2d3139] shadow-2xl bg-[#111115]">
+          <img src="/images/avatar.webp" alt="Taha Salman Avatar" width="400" height="400" fetchpriority="high" decoding="async" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105" />
+        </div>
+      </div>
+      <section class="flex-1 w-full flex flex-col justify-start text-[14px] sm:text-[15px] leading-relaxed" aria-label="Interactive terminal">
+        <div id="history" class="max-h-[380px] overflow-y-auto space-y-5 pr-2 scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent" aria-live="polite"></div>
+        <div class="flex items-center gap-2 pt-4 border-t border-[#1e2030]/40 mt-4">
+          <span class="text-[#89b4fa] shrink-0">taha@pitwall:~$</span>
+          <input id="terminal-input" type="text" class="terminal-input" aria-label="Terminal input" autocomplete="off" autocapitalize="off" spellcheck="false" />
+          <div class="flex items-center flex-1 break-all" aria-hidden="true"><span id="typed-value" class="text-[#e5c07b] whitespace-pre-wrap"></span><span class="inline-block w-[9px] h-[16px] bg-[#a6adc8] animate-blink align-middle ml-1 shrink-0"></span></div>
+        </div>
+        <span class="text-[11px] text-[#585b70] mt-3 block select-none">[Hint: Click anywhere and type. Try: <span class="underline">help</span>, <span class="underline">projects</span>, or <span class="underline">ftc</span>]</span>
+      </section>
+    </div>
+  </main>
+  <dialog id="lightbox" class="lightbox m-auto bg-transparent p-0 max-w-[92vw] max-h-[92dvh] outline-none">
+    <figure class="flex flex-col items-center gap-3">
+      <img id="lightbox-image" alt="" class="max-w-[92vw] max-h-[82dvh] object-contain rounded-lg border border-[#2d3139]" />
+      <figcaption id="lightbox-caption" class="font-mono text-sm text-[#a6adc8] text-center"></figcaption>
+    </figure>
+  </dialog>`;const A=document.querySelector("#terminal-app"),r=document.querySelector("#history"),i=document.querySelector("#terminal-input"),x=document.querySelector("#typed-value"),h=document.querySelector("#lightbox"),b=document.querySelector("#lightbox-image"),D=document.querySelector("#lightbox-caption"),g=(e,t=!1,o=0)=>{const s=document.createElement("div");s.className="terminal-line space-y-1.5",s.style.animationDelay=`${o}ms`;const a=document.createElement("div");a.className="flex items-center gap-2",a.innerHTML='<span class="text-[#89b4fa]">taha@pitwall:~$</span>';const n=document.createElement("span");n.className="text-[#e5c07b]",n.textContent=e,a.append(n),s.append(a);const c=_(e,t);if(c){const l=document.createElement("div");if(c==="not-found"){l.className="text-[#f38ba8]",l.append("sh: command not found: ",e,". Type ");const d=document.createElement("button");d.type="button",d.className="underline font-semibold text-[#f9e2af] cursor-pointer",d.textContent="help",d.addEventListener("click",k=>{k.stopPropagation(),i.value="help",x.textContent="help",i.focus()}),l.append(d," for a list of commands.")}else l.innerHTML=c;s.append(l)}for(r.append(s);r.childElementCount>C;)r.firstElementChild?.remove()};g("whoami",!0,100);g("links",!0,280);i.addEventListener("input",()=>{x.textContent=i.value});const w=e=>{if(e.trim().toLowerCase()==="clear"){r.replaceChildren();return}g(e);const t=r.lastElementChild,o=r.scrollTop+t.getBoundingClientRect().top-r.getBoundingClientRect().top;r.scrollTo({top:o,behavior:"smooth"})};i.addEventListener("keydown",e=>{e.key==="Enter"&&(w(i.value),i.value="",x.textContent="")});r.addEventListener("click",e=>{const t=e.target,o=t.closest("[data-command]");if(o){w(o.dataset.command);return}const s=t.closest("[data-photo]");s&&(e.stopPropagation(),b.src=s.dataset.photo,b.alt=s.dataset.caption,D.textContent=s.dataset.caption,h.showModal())});h.addEventListener("click",()=>h.close());const y=matchMedia("(hover: hover) and (pointer: fine)").matches;h.addEventListener("close",()=>{y&&i.focus()});A.addEventListener("click",()=>i.focus());y&&i.focus();

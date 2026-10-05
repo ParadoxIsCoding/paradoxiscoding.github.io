@@ -96,3 +96,12 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+.lightbox::backdrop {
+  background: rgb(8 8 10 / 0.85);
+  backdrop-filter: blur(4px);
+}
+
+.lightbox[open] {
+  animation: avatar-in 200ms ease-out both;
+}

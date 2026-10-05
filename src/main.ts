@@ -104,7 +104,6 @@ const engg1100Markup = `
       "Four 12 V N20 gearmotor winches form a spread mooring that tensions or slackens as the water changes",
       "ESP32-S3 runs a phone web app over its own Wi-Fi, drives L9110S H-bridges and reads tilt from an IMU",
       "Stops all motors if the connection drops. Parts came to about $124 against a $170 budget",
-      "My part: designed the entire house and did all of the wiring and electronics",
     ])}
     ${gallery([
       { src: "engg1100-house", caption: "The prototype on the UQ Innovate flood test rig" },

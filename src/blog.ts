@@ -186,7 +186,7 @@ const mountPost = (root: HTMLElement, post: Post): Dispose => {
     `<div id="read-progress" class="fixed top-0 left-0 z-40 h-0.5 w-full origin-left scale-x-0 bg-gradient-to-r from-[#89b4fa] to-[#cba6f7]"></div>` +
     shell(
       `<div class="mx-auto flex max-w-5xl gap-12 px-5 py-10 sm:py-14">
-        <article class="min-w-0 flex-1 max-w-[44rem]">
+        <article class="min-w-0 flex-1 max-w-[42rem]">
           <a href="#/blog" class="text-sm text-[#585b70] hover:text-[#89b4fa] transition-colors">&larr; all posts</a>
           <h1 class="mt-5 text-2xl sm:text-4xl font-bold leading-tight text-[#d8b4fe]">${escapeHtml(post.title)}</h1>
           <div class="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs text-[#585b70]">
